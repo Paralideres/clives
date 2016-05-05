@@ -2,23 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Permission;
+use App\Role;
+use App\User;
 use Illuminate\Http\Request;
+
 use App\Http\Requests;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
-use App\User;
+use Log;
 
 class AuthenticateController extends Controller
 {
-    public function __construct() {
-      $this->middleware('jwt.refresh', ['except' => ['authenticate']]);
-    }
 
     public function index()
     {
-        // Retrieve all the users in the database and return them
-        $users = User::all();
-        return $users;
+        return response()->json(['auth'=>Auth::user(), 'users'=>User::all()]);
     }
 
     public function authenticate(Request $request)
@@ -38,5 +39,43 @@ class AuthenticateController extends Controller
 
         // all good so return the token
         return response()->json(compact('token'));
+    }
+
+    public function createRole(Request $request)
+    {
+        $role = new Role();
+        $role->name = $request->input('name');
+        $role->save();
+
+        return response()->json($role);
+    }
+
+    public function createPermission(Request $request)
+    {
+        $permission = new Permission();
+        $permission->name = $request->input('name');
+        $permission->save();
+
+        return response()->json($permission);
+    }
+
+    public function assignRole(Request $request)
+    {
+        $user = User::where('email', '=', $request->input('email'))->first();
+        $role = Role::where('name', '=', $request->input('role'))->first();
+
+        $user->roles()->attach($role->id);
+
+        return response()->content(200);
+    }
+
+    public function attachPermission(Request $request)
+    {
+        $role = Role::where('name', '=', $request->input('role'))->first();
+        $permission = Permission::where('name', '=', $request->input('name'))->first();
+
+        $role->attachPermission($permission);
+
+        return response()->content(200);
     }
 }

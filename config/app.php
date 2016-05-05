@@ -157,10 +157,14 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         /**
-         * JWT Auth
+         * JWT Auth (Authentication)
          */
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
 
+        /**
+         * Zizaco Roles Manager (Authorization)
+         */
+        Zizaco\Entrust\EntrustServiceProvider::class,
     ],
 
     /*
@@ -212,6 +216,7 @@ return [
          */
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
+        'Entrust' => Zizaco\Entrust\EntrustServiceProvider::class,
     ],
 
 ];

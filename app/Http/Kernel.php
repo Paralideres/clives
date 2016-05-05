@@ -51,6 +51,9 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'simpleauth' => \App\Http\Middleware\SimpleAuthMiddleware::class,
         'jwt.auth' => \Tymon\JWTAuth\Middleware\GetUserFromToken::class,
-        'jwt.refresh' => \Tymon\JWTAuth\Middleware\RefreshToken::class
+        'jwt.refresh' => \Tymon\JWTAuth\Middleware\RefreshToken::class,
+        'role' => 'App\Http\Middleware\TokenEntrustRole',
+        'permission' => 'App\Http\Middleware\TokenEntrustPermission',
+        'ability' => 'App\Http\Middleware\TokenEntrustAbility'
     ];
 }
