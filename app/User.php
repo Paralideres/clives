@@ -17,28 +17,18 @@ class User extends Model implements AuthenticatableContract,
 {
     use Authenticatable, CanResetPassword, EntrustUserTrait;
 
-    /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
     protected $table = 'users';
-    
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+
     protected $fillable = [
-        'name', 'email', 'password',
+        'username', 'email', 'password'
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'verified', 'verification_token'
     ];
+
+    public function profile()
+    {
+        return $this->hasOne('App\UserProfile');
+    }
 }

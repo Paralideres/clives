@@ -1,26 +1,10 @@
 <?php
 
-//Route::auth();
-
 //Route::get('/home', 'HomeController@index');
 
 /**
  * API
  */
-// Route::group(['prefix' => 'api/v1'], function () {
-//
-//   // Auth
-//   Route::resource('authenticate', 'AuthenticateController', ['only' => ['index']]);
-//   Route::post('authenticate', 'AuthenticateController@authenticate');
-//
-//   // Users
-//   Route::group(['prefix' => 'users'], function () {
-//
-//    Route::get('/', 'UserController@index');
-//
-//   });
-//
-// });
 
 // Route to create a new role
 Route::post('role', 'AuthenticateController@createRole');
@@ -32,15 +16,36 @@ Route::post('assign-role', 'AuthenticateController@assignRole');
 Route::post('attach-permission', 'AuthenticateController@attachPermission');
 
 // API route group that we need to protect
-Route::group(['prefix' => 'api', 'middleware' => ['ability:admin,create-users']], function()
+Route::group(['prefix' => 'api'], function()
 {
-    // Protected route
-    Route::get('users', 'AuthenticateController@index');
+
+    Route::group(['prefix' => 'users'], function() {
+
+      // User List
+      Route::get('/', 'UserController@index');
+
+      // Create User
+      Route::post('/', 'UserController@store');
+
+      //User Actions
+      Route::group(['prefix' => '/{user_id}'], function($userId) {
+
+        // Get User
+        Route::get('/', 'UserController@show');
+
+        // Update User
+        Route::put('/', 'UserController@update');
+
+        // Get User Profile
+        Route::get('/profile', 'UserController@getProfile');
+
+        // Update User Profile
+        Route::put('/profile', 'UserController@updateProfile');
+      });
+
+    });
+
 });
 
 // Authentication route
 Route::post('authenticate', 'AuthenticateController@authenticate');
-
-//Route::post('api/v1/auth/login', ['uses' => ''])
-//Route::get('api/resources', ['uses' => 'ResourceController@index','middleware'=>'simpleauth']);
-//Route::post('api/resources', ['uses' => 'ResourceController@store','middleware'=>'simpleauth']);

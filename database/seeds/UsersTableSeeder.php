@@ -13,10 +13,21 @@ class UsersTableSeeder extends Seeder
     {
         DB::table('users')->delete();
         DB::table('users')->insert([
-            'name' => 'Jorge Vivas',
+            'username' => 'jorge',
             'email' => 'jorge@paralideres.org',
             'password' => bcrypt('test123'),
+            'verified' => true
         ]);
-        factory(App\User::class, 50)->create();
+
+        $user = DB::table('users')->where('username', 'jorge')->first();
+
+        DB::table('user_profiles')->delete();
+        DB::table('user_profiles')->insert([
+            'user_id' => $user->id
+        ]);
+
+        factory(App\User::class, 50)->create()->each(function($u) {
+            $u->profile()->save(factory(App\UserProfile::class)->make());
+        });
     }
 }

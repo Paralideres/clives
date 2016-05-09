@@ -16,12 +16,6 @@ use Log;
 
 class AuthenticateController extends Controller
 {
-
-    public function index()
-    {
-        return response()->json(['auth'=>Auth::user(), 'users'=>User::all()]);
-    }
-
     public function authenticate(Request $request)
     {
         // grab credentials from the request
@@ -46,7 +40,6 @@ class AuthenticateController extends Controller
         $role = new Role();
         $role->name = $request->input('name');
         $role->save();
-
         return response()->json($role);
     }
 
@@ -55,7 +48,6 @@ class AuthenticateController extends Controller
         $permission = new Permission();
         $permission->name = $request->input('name');
         $permission->save();
-
         return response()->json($permission);
     }
 
