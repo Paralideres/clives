@@ -31,7 +31,11 @@ class UserController extends Controller
     }
 
     public function store(UserCreateRequest $request) {
-      $user = User::create($request->all());
+      $user = User::create([
+        'email' => $request->email,
+        'password' => bcrypt($request->password),
+        'username' => $request->username
+      ]);
       $user_profile = new UserProfile();
       $user->profile()->save($user_profile);
       return response()->json($user);
@@ -42,7 +46,6 @@ class UserController extends Controller
     }
 
     public function updateProfile(UserProfileUpdateRequest $request, $user_id) {
-
       $profile = UserProfile::where('user_id', $user_id)->first();
       $profile->fullname = $request->fullname;
       $profile->country = $request->country;

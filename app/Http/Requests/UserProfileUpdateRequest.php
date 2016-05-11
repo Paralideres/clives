@@ -31,14 +31,13 @@ class UserProfileUpdateRequest extends FormRequest {
 
     public function authorize()
     {
-
         // Only logged users
         if ( Auth::user()->hasRole('admin'))
         {
             return true;
         }
 
-        return Auth::id() === $this->route('id');
+        return Auth::id() == $this->route('user_id');
     }
 
     public function forbiddenResponse()

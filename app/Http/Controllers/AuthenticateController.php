@@ -58,7 +58,7 @@ class AuthenticateController extends Controller
 
         $user->roles()->attach($role->id);
 
-        return response()->content(200);
+        return response()->json([], 200);
     }
 
     public function attachPermission(Request $request)
@@ -68,6 +68,7 @@ class AuthenticateController extends Controller
 
         $role->attachPermission($permission);
 
-        return response()->content(200);
+        return response()->json([], 200);
+
     }
 }
