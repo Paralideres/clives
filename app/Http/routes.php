@@ -36,6 +36,9 @@ Route::group(['prefix' => 'api'], function()
         // Update User
         Route::put('/', 'UserController@update');
 
+        // Delete User
+        Route::delete('/', 'UserController@delete');
+
         // Get User Profile
         Route::get('/profile', 'UserController@getProfile');
 

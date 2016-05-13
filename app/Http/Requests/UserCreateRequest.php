@@ -13,8 +13,8 @@ class UserCreateRequest extends FormRequest {
     public function rules()
     {
       	return [
-        		'username' => 'required|max:30|alpha_num|unique:users',
-        		'email' => 'required|email|unique:users',
+        		'username' => 'required|max:30|alpha_num|unique:users,username,NULL,id,deleted_at,NULL',
+        		'email' => 'required|email|unique:users,username,NULL,id,deleted_at,NULL',
         		'password' => 'required|confirmed|min:7'
       	];
     }

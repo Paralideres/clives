@@ -25,8 +25,12 @@ class CreateTableUserProfile extends Migration
             $table->string('social_instagram', 100)->nullable();
             $table->string('social_snapchat', 100)->nullable();
             $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')
+              ->on('users')->onUpdate('cascade')->onDelete('cascade');
+
+            $table->primary(['user_id']);
         });
     }
 

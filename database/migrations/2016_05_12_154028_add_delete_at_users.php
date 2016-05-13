@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddConfirmationToken extends Migration
+class AddDeleteAtUsers extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,7 @@ class AddConfirmationToken extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->boolean('verified')->default(false);
-            $table->string('verification_token')->nullable();
+          $table->softDeletes();
         });
     }
 
@@ -25,9 +24,8 @@ class AddConfirmationToken extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('verified');
-            $table->dropColumn('verification_token');
-        });
+      Schema::table('users', function ($table) {
+        $table->dropColumn('deleted_at');
+      });
     }
 }
