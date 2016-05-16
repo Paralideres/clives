@@ -3,10 +3,8 @@
 use Illuminate\Http\JsonResponse;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
-use App\UserProfile;
-use Response;
 
-class UserProfileUpdateRequest extends FormRequest {
+class UserImageProfileImageRequest extends FormRequest {
     /**
      * Get the validation rules that apply to the request.
      *
@@ -15,16 +13,7 @@ class UserProfileUpdateRequest extends FormRequest {
     public function rules()
     {
       	return [
-            'fullname' => 'max:100',
-            'country' => 'max:100|regex:/^[(a-zA-Z\s)]+$/u',
-            'city' => 'max:100|regex:/^[(a-zA-Z\s)]+$/u',
-            'birthdate' => 'date',
-            'description' => 'max:300',
-            'social_facebook' => 'max:50',
-            'social_twitter' => 'max:50',
-            'social_youtube' => 'max:20',
-            'social_instagram' => 'max:50',
-            'social_snapchat' => 'max:30'
+            'image' => 'required|mimes:jpeg,bmp,png|size:4000',
       	];
     }
 

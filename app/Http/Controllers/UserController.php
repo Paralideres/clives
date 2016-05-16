@@ -8,6 +8,7 @@ use App\UserProfile;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserProfileUpdateRequest;
+use App\Http\Requests\UserImageProfileImageRequest;
 
 class UserController extends Controller
 {
@@ -49,17 +50,14 @@ class UserController extends Controller
         return response()->json($user);
     }
 
-    public function delete($userId)
+    public function delete(UserDeleteProfileRequest $request, $userId)
     {
-        // Only logged users and admins can delete users
-        if (Auth::user()->hasRole('admin') || (Auth::id() == $this->route('user_id')))
-        {
-            if (User::find($userId)->delete()) {
-              return response()->json('', 200);
-            }
+
+        if (User::find($userId)->delete()) {
+            return response()->json('', 200);
         }
 
-        return response()->json('Access Forbiden', 403);
+        return response()->json('Not Found', 404);
     }
 
     public function getProfile($userId)
@@ -88,5 +86,12 @@ class UserController extends Controller
         $profile->social_snapchat = $request->social_snapcha;
         $profile->save();
         return response()->json($profile);
+    }
+
+    public function updateImage(UserImageProfileImageRequest $request, $user_id)
+    {
+        $profile = User::find($userId)->profile;
+        $image = $request->file('image');
+        var_dump($image);
     }
 }

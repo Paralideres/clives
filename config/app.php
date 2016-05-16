@@ -165,6 +165,11 @@ return [
          * Zizaco Roles Manager (Authorization)
          */
         Zizaco\Entrust\EntrustServiceProvider::class,
+
+        /**
+         * Image Manipulation
+         */
+        Intervention\Image\ImageServiceProvider::class,
     ],
 
     /*
@@ -217,6 +222,7 @@ return [
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
         'Entrust' => Zizaco\Entrust\EntrustServiceProvider::class,
+        'Image' => Intervention\Image\Facades\Image::class,
     ],
 
 ];

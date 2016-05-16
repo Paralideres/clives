@@ -13,7 +13,7 @@ class AuthenticateTest extends TestCase
      */
     public function testAuthenticate()
     {
-      $response = $this->call('POST', 'api/v1/authenticate', ['email' => 'jorge@paralideres.org', 'password' => 'test123']);
+      $response = $this->call('POST', '/api/authenticate', ['email' => 'jorge@paralideres.org', 'password' => 'test123']);
       $object = json_decode($response->getContent());
 
       $this->assertNotNull($object->token);
