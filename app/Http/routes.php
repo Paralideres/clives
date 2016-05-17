@@ -26,31 +26,36 @@ Route::group(['prefix' => 'api'], function()
 
     Route::group(['prefix' => 'users'], function() {
 
-      // User List
-      Route::get('/', 'UserController@index');
+        // User List
+        Route::get('/', 'UserController@index');
 
-      // Create User
-      Route::post('/', 'UserController@store');
+        // Create User
+        Route::post('/', 'UserController@store');
 
-      //User Actions
-      Route::group(['prefix' => '/{user_id}'], function($userId) {
+        //User Actions
+        Route::group(['prefix' => '/{user_id}'], function($userId) {
 
-        // Get User
-        Route::get('/', 'UserController@show');
+            // Get User
+            Route::get('/', 'UserController@show');
 
-        // Get User Profile
-        Route::get('/profile', 'UserController@getProfile');
+            // Get User Profile
+            Route::get('/profile', 'UserController@getProfile');
 
-        // Update User
-        Route::put('/', 'UserController@update');
+            // Update User
+            Route::put('/', 'UserController@update');
 
-        // Delete User
-        Route::delete('/', 'UserController@delete');
+            // Delete User
+            Route::delete('/', 'UserController@delete');
 
-        // Update User Profile
-        Route::put('/profile', 'UserController@updateProfile');
-      });
+            // Update User Profile
+            Route::put('/profile', 'UserController@updateProfile');
+
+            // Update User Profile Image
+            Route::post('/profile/image', 'UserController@updateImage');
+
+            // Delete User Profile Image
+            Route::delete('/profile/image', 'UserController@deleteImage');
+        });
 
     });
-
 });

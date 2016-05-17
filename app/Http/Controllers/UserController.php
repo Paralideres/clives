@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Image;
+use Storage;
+
 use App\User;
 use App\UserProfile;
-use Illuminate\Support\Facades\Auth;
+
+use Illuminate\Http\Request;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserProfileUpdateRequest;
 use App\Http\Requests\UserImageProfileImageRequest;
+use App\Http\Requests\UserDeleteUserRequest;
 
 class UserController extends Controller
 {
@@ -50,7 +54,7 @@ class UserController extends Controller
         return response()->json($user);
     }
 
-    public function delete(UserDeleteProfileRequest $request, $userId)
+    public function delete(UserDeleteUserRequest $request, $userId)
     {
 
         if (User::find($userId)->delete()) {
@@ -71,9 +75,9 @@ class UserController extends Controller
         return response()->json('Not Found', 404);
     }
 
-    public function updateProfile(UserProfileUpdateRequest $request, $user_id)
+    public function updateProfile(UserProfileUpdateRequest $request, $userId)
     {
-        $profile = UserProfile::where('user_id', $user_id)->first();
+        $profile = UserProfile::where('user_id', $userId)->first();
         $profile->fullname = $request->fullname;
         $profile->country = $request->country;
         $profile->city = $request->city;
@@ -88,10 +92,62 @@ class UserController extends Controller
         return response()->json($profile);
     }
 
-    public function updateImage(UserImageProfileImageRequest $request, $user_id)
+    public function updateImage(UserImageProfileImageRequest $request, $userId)
     {
         $profile = User::find($userId)->profile;
+        $previous_image = $profile->image;
         $image = $request->file('image');
-        var_dump($image);
+        list($width, $height) = getimagesize($image);
+
+        // Image Manipulation
+        $original_img = Image::make($image)->encode('png');
+        $profile_img = Image::make($image)->fit(300)->encode('png');
+        $thumb_img = Image::make($image)->fit(100)->encode('png');
+
+        $img_name = str_random(5) . '_' . uniqid($userId);
+        $path = storage_path('app/public/assets/uploads/');
+
+        // Image storage
+        if ($width > 1000 || $height > 1000) {
+          $original_img->widen(1000);
+        }
+
+        $original_img->save($path . $img_name . '_original.png');
+        $profile_img->save($path . $img_name . '_profile.png');
+        $thumb_img->save($path . $img_name . '_thumb.png');
+
+        // Update the DB
+        $profile->image = $img_name;
+        $profile->save();
+
+        // Delete old File
+        if ($previous_image) {
+          Storage::delete('public/assets/uploads/'.$previous_image.'_original.png');
+          Storage::delete('public/assets/uploads/'.$previous_image.'_profile.png');
+          Storage::delete('public/assets/uploads/'.$previous_image.'_thumb.png');
+        }
+
+        // @todo Send Image to S3
+        return response()->json(['image' => $img_name], 200);
+    }
+
+    public function deleteImage(UserDeleteUserRequest $request, $userId)
+    {
+        $profile = User::find($userId)->profile;
+        $previous_image = $profile->image;
+
+        // Update the DB
+        $profile->image = null;
+        $profile->save();
+
+        // Delete old File
+        if ($previous_image) {
+          Storage::delete('public/assets/uploads/'.$previous_image.'_original.png');
+          Storage::delete('public/assets/uploads/'.$previous_image.'_profile.png');
+          Storage::delete('public/assets/uploads/'.$previous_image.'_thumb.png');
+        }
+
+        // @todo Send Image to S3
+        return response()->json(null, 200);
     }
 }

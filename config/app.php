@@ -170,6 +170,11 @@ return [
          * Image Manipulation
          */
         Intervention\Image\ImageServiceProvider::class,
+
+        /**
+         * Image size validation
+         */
+        Cviebrock\ImageValidator\ImageValidatorServiceProvider::class
     ],
 
     /*

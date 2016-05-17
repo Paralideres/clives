@@ -4,7 +4,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class UserDeleteProfileRequest extends FormRequest {
+class UserDeleteUserRequest extends FormRequest {
     /**
      * Get the validation rules that apply to the request.
      *

@@ -13,7 +13,7 @@ class UserImageProfileImageRequest extends FormRequest {
     public function rules()
     {
       	return [
-            'image' => 'required|mimes:jpeg,bmp,png|size:4000',
+            'image' => 'required|mimes:jpeg,bmp,png|max:4000|image_size:>=300,>=300',
       	];
     }
 
