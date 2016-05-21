@@ -58,4 +58,6 @@ Route::group(['prefix' => 'api'], function()
         });
 
     });
+
+    Route::resource('categories', 'CategoryController');
 });

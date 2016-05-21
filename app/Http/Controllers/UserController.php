@@ -9,10 +9,10 @@ use App\User;
 use App\UserProfile;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\UserCreateRequest;
-use App\Http\Requests\UserProfileUpdateRequest;
-use App\Http\Requests\UserImageProfileImageRequest;
-use App\Http\Requests\UserDeleteUserRequest;
+use App\Http\Requests\User\UserCreateRequest;
+use App\Http\Requests\User\UserProfileUpdateRequest;
+use App\Http\Requests\User\UserImageProfileImageRequest;
+use App\Http\Requests\User\UserDeleteUserRequest;
 
 class UserController extends Controller
 {

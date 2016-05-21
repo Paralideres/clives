@@ -1,10 +1,10 @@
-<?php namespace App\Http\Requests;
+<?php namespace App\Http\Requests\User;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class UserDeleteUserRequest extends FormRequest {
+class UserImageProfileImageRequest extends FormRequest {
     /**
      * Get the validation rules that apply to the request.
      *
@@ -12,7 +12,9 @@ class UserDeleteUserRequest extends FormRequest {
      */
     public function rules()
     {
-      	return [];
+      	return [
+            'image' => 'required|mimes:jpeg,bmp,png|max:4000|image_size:>=300,>=300',
+      	];
     }
 
     public function authorize()

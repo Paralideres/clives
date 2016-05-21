@@ -1,4 +1,4 @@
-<?php namespace App\Http\Requests;
+<?php namespace App\Http\Requests\User;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Foundation\Http\FormRequest;

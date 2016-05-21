@@ -26,7 +26,7 @@ class UsersTableSeeder extends Seeder
             'user_id' => $user->id
         ]);
 
-        factory(App\User::class, 50)->create()->each(function($u) {
+        factory(App\User::class, 10)->create()->each(function($u) {
             $u->profile()->save(factory(App\UserProfile::class)->make());
         });
     }

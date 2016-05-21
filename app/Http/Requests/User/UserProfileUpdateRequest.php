@@ -1,10 +1,12 @@
-<?php namespace App\Http\Requests;
+<?php namespace App\Http\Requests\User;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use App\UserProfile;
+use Response;
 
-class UserImageProfileImageRequest extends FormRequest {
+class UserProfileUpdateRequest extends FormRequest {
     /**
      * Get the validation rules that apply to the request.
      *
@@ -13,7 +15,16 @@ class UserImageProfileImageRequest extends FormRequest {
     public function rules()
     {
       	return [
-            'image' => 'required|mimes:jpeg,bmp,png|max:4000|image_size:>=300,>=300',
+            'fullname' => 'max:100',
+            'country' => 'max:100|regex:/^[(a-zA-Z\s)]+$/u',
+            'city' => 'max:100|regex:/^[(a-zA-Z\s)]+$/u',
+            'birthdate' => 'date',
+            'description' => 'max:300',
+            'social_facebook' => 'max:50',
+            'social_twitter' => 'max:50',
+            'social_youtube' => 'max:20',
+            'social_instagram' => 'max:50',
+            'social_snapchat' => 'max:30'
       	];
     }
 
