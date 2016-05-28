@@ -4,13 +4,20 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "type": "project",
+    "repositories": [
+        {
+            "type": "git",
+            "url": "git@github.com:Paralideres/jwt-auth-guard.git"
+        }
+    ],
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*",
          "tymon/jwt-auth": "0.5.*",
          "zizaco/entrust": "dev-laravel-5",
         "intervention/image": "^2.3",
-        "cviebrock/image-validator": "^2.0"
+        "cviebrock/image-validator": "^2.0",
+        "irazasyed/jwt-auth-guard": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

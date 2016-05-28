@@ -12,6 +12,12 @@ Route::group(['prefix' => 'api'], function()
     // Authentication route
     Route::post('authenticate', 'AuthenticateController@authenticate');
 
+    // Password reset link request routes...
+    Route::post('password/email', 'Auth\PasswordController@postEmail');
+
+    // Password reset routes...
+    Route::post('password/reset', 'Auth\PasswordController@postReset');
+
     // Route to create a new role
     Route::post('role', 'AuthenticateController@createRole');
 
@@ -40,6 +46,9 @@ Route::group(['prefix' => 'api'], function()
 
             // Get User Profile
             Route::get('/profile', 'UserController@getProfile');
+
+            // Update user password
+            Route::post('/password/reset', 'Auth\PasswordController@postReset');
 
             // Update User
             Route::put('/', 'UserController@update');

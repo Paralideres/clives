@@ -4,6 +4,11 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Mail\Message;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Password;
 
 class PasswordController extends Controller
 {
@@ -17,8 +22,9 @@ class PasswordController extends Controller
     | explore this trait and override any methods you wish to tweak.
     |
     */
-
     use ResetsPasswords;
+
+    protected $guard = 'api';
 
     /**
      * Create a new password controller instance.
@@ -98,52 +104,7 @@ class PasswordController extends Controller
      */
     protected function getSendResetLinkEmailFailureResponse($response)
     {
-        return return response()->json($response, 400);
-    }
-
-    /**
-     * Display the password reset view for the given token.
-     *
-     * If no token is present, return 400.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  string|null  $token
-     * @return \Illuminate\Http\Response
-     */
-    public function getReset(Request $request, $token = null)
-    {
-
-
-
-        return $this->showResetForm($request, $token);
-    }
-
-    /**
-     * Display the password reset view for the given token.
-     *
-     * If no token is present, display the link request form.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  string|null  $token
-     * @return \Illuminate\Http\Response
-     */
-    public function showResetForm(Request $request, $token = null)
-    {
-        if (is_null($token)) {
-            return $this->getEmail();
-        }
-
-        $email = $request->input('email');
-
-        if (property_exists($this, 'resetView')) {
-            return view($this->resetView)->with(compact('token', 'email'));
-        }
-
-        if (view()->exists('auth.passwords.reset')) {
-            return view('auth.passwords.reset')->with(compact('token', 'email'));
-        }
-
-        return view('auth.reset')->with(compact('token', 'email'));
+        return response()->json($response, 400);
     }
 
     /**
@@ -182,10 +143,11 @@ class PasswordController extends Controller
             $this->resetPassword($user, $password);
         });
 
+        $token = Auth::guard($this->getGuard())->attempt($request->only('email', 'password'));
+
         switch ($response) {
             case Password::PASSWORD_RESET:
-                return $this->getResetSuccessResponse($response);
-
+                return $this->getResetSuccessResponse($token);
             default:
                 return $this->getResetFailureResponse($request, $response);
         }
@@ -238,8 +200,6 @@ class PasswordController extends Controller
             'password' => bcrypt($password),
             'remember_token' => Str::random(60),
         ])->save();
-
-        Auth::guard($this->getGuard())->login($user);
     }
 
     /**
@@ -248,9 +208,9 @@ class PasswordController extends Controller
      * @param  string  $response
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    protected function getResetSuccessResponse($response)
+    protected function getResetSuccessResponse($token)
     {
-        return redirect($this->redirectPath())->with('status', trans($response));
+        return response()->json(compact('token'), 200);
     }
 
     /**
@@ -262,28 +222,6 @@ class PasswordController extends Controller
      */
     protected function getResetFailureResponse(Request $request, $response)
     {
-        return redirect()->back()
-            ->withInput($request->only('email'))
-            ->withErrors(['email' => trans($response)]);
-    }
-
-    /**
-     * Get the broker to be used during password reset.
-     *
-     * @return string|null
-     */
-    public function getBroker()
-    {
-        return property_exists($this, 'broker') ? $this->broker : null;
-    }
-
-    /**
-     * Get the guard to be used during password reset.
-     *
-     * @return string|null
-     */
-    protected function getGuard()
-    {
-        return property_exists($this, 'guard') ? $this->guard : null;
+        return response()->json($response, 400);
     }
 }

@@ -7,9 +7,11 @@ use Storage;
 
 use App\User;
 use App\UserProfile;
+use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\User\UserCreateRequest;
+use App\Http\Requests\User\UserUpdateRequest;
 use App\Http\Requests\User\UserProfileUpdateRequest;
 use App\Http\Requests\User\UserImageProfileImageRequest;
 use App\Http\Requests\User\UserDeleteUserRequest;
@@ -52,6 +54,33 @@ class UserController extends Controller
         $user_profile = new UserProfile();
         $user->profile()->save($user_profile);
         return response()->json($user);
+    }
+
+    // Update one at a time with the required password validation
+    public function update(UserUpdateRequest $request, $userId)
+    {
+        $user = User::find($userId);
+
+        $credentials = [
+          'email' => $user->email,
+          'password' => $request->password
+        ];
+
+        // Confirm credentials
+        if(Auth::attempt($credentials, false)) {
+
+          if ($request->email) {
+            $user->email = $request->email;
+          } elseif ($request->username) {
+            $user->username = $request->username;
+          }
+
+          $user->save();
+          return response()->json($user);
+
+        }
+
+        return response()->json('Password is required', 401);
     }
 
     public function delete(UserDeleteUserRequest $request, $userId)
