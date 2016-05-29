@@ -80,7 +80,7 @@ class UserController extends Controller
 
         }
 
-        return response()->json('Password is required', 401);
+        return response()->json('Wrong password', 401);
     }
 
     public function delete(UserDeleteUserRequest $request, $userId)

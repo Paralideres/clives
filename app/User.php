@@ -9,12 +9,14 @@ use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Tymon\JWTAuth\Contracts\JWTSubject as JWTableContract;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Model implements AuthenticatableContract,
                                     AuthorizableContract,
-                                    CanResetPasswordContract
+                                    CanResetPasswordContract,
+                                    JWTableContract
 {
     use Authenticatable, CanResetPassword, EntrustUserTrait, SoftDeletes;
 
@@ -33,5 +35,21 @@ class User extends Model implements AuthenticatableContract,
     public function profile()
     {
         return $this->hasOne('App\UserProfile');
+    }
+
+    public function resources()
+    {
+        return $this->hasMany('App\Resource');
+    }
+
+    public function getJWTIdentifier()
+    {
+        // Eloquen model method
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 }

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1989fe3fe373142ce7bf5cff82a3d0b8",
-    "content-hash": "5d1398e9903c5ba09f8c03ce367b831d",
+    "hash": "989dc951f850fe4925b90f70c66aed1a",
+    "content-hash": "2230334155a52fe0ed0bfef5a2612936",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -333,11 +333,17 @@
         },
         {
             "name": "irazasyed/jwt-auth-guard",
-            "version": "dev-master",
+            "version": "v1.0.4",
             "source": {
                 "type": "git",
-                "url": "git@github.com:Paralideres/jwt-auth-guard.git",
-                "reference": "87e37c60d9a8f1bb8ec9d6720da6f0629ea3feee"
+                "url": "https://github.com/irazasyed/jwt-auth-guard.git",
+                "reference": "efb6195b33bf4221c0553a081a6e3b2a476d2070"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/irazasyed/jwt-auth-guard/zipball/efb6195b33bf4221c0553a081a6e3b2a476d2070",
+                "reference": "efb6195b33bf4221c0553a081a6e3b2a476d2070",
+                "shasum": ""
             },
             "require": {
                 "illuminate/support": "~5.0",
@@ -363,16 +369,7 @@
                     "Irazasyed\\JwtAuthGuard\\": "src"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "Irazasyed\\JwtAuthGuard\\Test\\": "tests"
-                }
-            },
-            "scripts": {
-                "test": [
-                    "phpunit"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -393,7 +390,7 @@
                 "laravel jwt auth guard",
                 "lumen jwt auth guard"
             ],
-            "time": "2016-05-28 01:37:26"
+            "time": "2016-04-27 15:47:45"
         },
         {
             "name": "jakub-onderka/php-console-color",
@@ -876,31 +873,40 @@
         },
         {
             "name": "namshi/jose",
-            "version": "5.0.2",
+            "version": "7.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/namshi/jose.git",
-                "reference": "8c7eba486f74c014ea1d8faedafe5109a31ea95b"
+                "reference": "5e74d1b5e3d7ba92c62e4ee1d24bdce37ecc10a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/namshi/jose/zipball/8c7eba486f74c014ea1d8faedafe5109a31ea95b",
-                "reference": "8c7eba486f74c014ea1d8faedafe5109a31ea95b",
+                "url": "https://api.github.com/repos/namshi/jose/zipball/5e74d1b5e3d7ba92c62e4ee1d24bdce37ecc10a4",
+                "reference": "5e74d1b5e3d7ba92c62e4ee1d24bdce37ecc10a4",
                 "shasum": ""
             },
             "require": {
-                "lib-openssl": "*",
-                "php": ">=5.3.3",
-                "phpseclib/phpseclib": "~0.3"
+                "ext-date": "*",
+                "ext-hash": "*",
+                "ext-json": "*",
+                "ext-pcre": "*",
+                "ext-spl": "*",
+                "php": ">=5.5",
+                "symfony/polyfill-php56": "^1.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "~4.5",
-                "satooshi/php-coveralls": "dev-master"
+                "phpseclib/phpseclib": "^2.0",
+                "phpunit/phpunit": "^4.5|^5.0",
+                "satooshi/php-coveralls": "^1.0"
+            },
+            "suggest": {
+                "ext-openssl": "Allows to use OpenSSL as crypto engine.",
+                "phpseclib/phpseclib": "Allows to use Phpseclib as crypto engine, use version ^2.0."
             },
             "type": "library",
             "autoload": {
-                "psr-0": {
-                    "Namshi\\JOSE": "src/"
+                "psr-4": {
+                    "Namshi\\JOSE\\": "src/Namshi/JOSE/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -911,6 +917,10 @@
                 {
                     "name": "Alessandro Nadalin",
                     "email": "alessandro.nadalin@gmail.com"
+                },
+                {
+                    "name": "Alessandro Cinelli (cirpo)",
+                    "email": "alessandro.cinelli@gmail.com"
                 }
             ],
             "description": "JSON Object Signing and Encryption library for PHP.",
@@ -922,7 +932,7 @@
                 "jwt",
                 "token"
             ],
-            "time": "2015-06-29 05:41:44"
+            "time": "2016-04-11 11:41:52"
         },
         {
             "name": "nesbot/carbon",
@@ -1069,104 +1079,6 @@
                 "random"
             ],
             "time": "2016-03-18 20:34:03"
-        },
-        {
-            "name": "phpseclib/phpseclib",
-            "version": "0.3.10",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "d15bba1edcc7c89e09cc74c5d961317a8b947bf4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/d15bba1edcc7c89e09cc74c5d961317a8b947bf4",
-                "reference": "d15bba1edcc7c89e09cc74c5d961317a8b947bf4",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.0.0"
-            },
-            "require-dev": {
-                "phing/phing": "~2.7",
-                "phpunit/phpunit": "~4.0",
-                "sami/sami": "~2.0",
-                "squizlabs/php_codesniffer": "~1.5"
-            },
-            "suggest": {
-                "ext-gmp": "Install the GMP (GNU Multiple Precision) extension in order to speed up arbitrary precision integer arithmetic operations.",
-                "ext-mcrypt": "Install the Mcrypt extension in order to speed up a wide variety of cryptographic operations.",
-                "pear-pear/PHP_Compat": "Install PHP_Compat to get phpseclib working on PHP < 4.3.3."
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "0.3-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Crypt": "phpseclib/",
-                    "File": "phpseclib/",
-                    "Math": "phpseclib/",
-                    "Net": "phpseclib/",
-                    "System": "phpseclib/"
-                },
-                "files": [
-                    "phpseclib/Crypt/Random.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "include-path": [
-                "phpseclib/"
-            ],
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jim Wigginton",
-                    "email": "terrafrost@php.net",
-                    "role": "Lead Developer"
-                },
-                {
-                    "name": "Patrick Monnerat",
-                    "email": "pm@datasphere.ch",
-                    "role": "Developer"
-                },
-                {
-                    "name": "Andreas Fischer",
-                    "email": "bantu@phpbb.com",
-                    "role": "Developer"
-                },
-                {
-                    "name": "Hans-Jürgen Petrich",
-                    "email": "petrich@tronic-media.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "PHP Secure Communications Library - Pure-PHP implementations of RSA, AES, SSH2, SFTP, X.509 etc.",
-            "homepage": "http://phpseclib.sourceforge.net",
-            "keywords": [
-                "BigInteger",
-                "aes",
-                "asn.1",
-                "asn1",
-                "blowfish",
-                "crypto",
-                "cryptography",
-                "encryption",
-                "rsa",
-                "security",
-                "sftp",
-                "signature",
-                "signing",
-                "ssh",
-                "twofish",
-                "x.509",
-                "x509"
-            ],
-            "time": "2015-01-28 21:50:33"
         },
         {
             "name": "psr/http-message",
@@ -2161,41 +2073,45 @@
         },
         {
             "name": "tymon/jwt-auth",
-            "version": "0.5.9",
+            "version": "dev-develop",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tymondesigns/jwt-auth.git",
-                "reference": "18b2add90de2315d549664b4d4a062db07e8b080"
+                "reference": "24dff0add7d29fcf6a2cee83adab869f9a59f7fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tymondesigns/jwt-auth/zipball/18b2add90de2315d549664b4d4a062db07e8b080",
-                "reference": "18b2add90de2315d549664b4d4a062db07e8b080",
+                "url": "https://api.github.com/repos/tymondesigns/jwt-auth/zipball/24dff0add7d29fcf6a2cee83adab869f9a59f7fc",
+                "reference": "24dff0add7d29fcf6a2cee83adab869f9a59f7fc",
                 "shasum": ""
             },
             "require": {
-                "illuminate/http": "~5.0",
-                "illuminate/support": "~5.0",
-                "namshi/jose": "5.0.*",
-                "nesbot/carbon": "~1.0",
-                "php": ">=5.4.0"
+                "illuminate/auth": "5.1.* || 5.2.*",
+                "illuminate/contracts": "5.1.* || 5.2.*",
+                "illuminate/http": "5.1.* || 5.2.*",
+                "illuminate/support": "5.1.* || 5.2.*",
+                "namshi/jose": "^7.0",
+                "nesbot/carbon": "^1.0",
+                "php": "^5.5.9 || ^7.0"
             },
             "require-dev": {
-                "illuminate/auth": "~5.0",
-                "illuminate/console": "~5.0",
-                "illuminate/database": "~5.0",
+                "cartalyst/sentinel": "2.0.*",
+                "illuminate/console": "5.1.* || 5.2.*",
+                "illuminate/database": "5.1.* || 5.2.*",
+                "illuminate/routing": "5.1.* || 5.2.*",
                 "mockery/mockery": "0.9.*",
-                "phpunit/phpunit": "4.*"
+                "october/rain": "dev-develop",
+                "phpunit/phpunit": "^4.0 || ^5.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-develop": "0.5-dev"
+                    "dev-develop": "1.0-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Tymon\\JWTAuth\\": "src"
+                    "Tymon\\JWTAuth\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -2206,21 +2122,20 @@
                 {
                     "name": "Sean Tymon",
                     "email": "tymon148@gmail.com",
-                    "homepage": "http://tymondesigns.com",
+                    "homepage": "http://tymon.xyz",
                     "role": "Developer"
                 }
             ],
-            "description": "JSON Web Token Authentication for Laravel 4 and 5",
+            "description": "JSON Web Token Authentication for Laravel and Lumen",
             "homepage": "https://github.com/tymondesigns/jwt-auth",
             "keywords": [
                 "Authentication",
                 "JSON Web Token",
                 "auth",
                 "jwt",
-                "laravel",
-                "tymon"
+                "laravel"
             ],
-            "time": "2016-02-18 09:22:36"
+            "time": "2016-05-22 15:26:25"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -3615,7 +3530,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "zizaco/entrust": 20,
-        "irazasyed/jwt-auth-guard": 20
+        "tymon/jwt-auth": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

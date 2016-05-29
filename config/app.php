@@ -159,7 +159,7 @@ return [
         /**
          * JWT Auth (Authentication)
          */
-        Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
+        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
         Irazasyed\JwtAuthGuard\JwtAuthGuardServiceProvider::class,
 
         /**

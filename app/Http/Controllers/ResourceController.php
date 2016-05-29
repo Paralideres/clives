@@ -26,8 +26,7 @@ class ResourceController extends Controller
   * @return Response
   */
  public function index() {
-   $resources = Resource::where('author_id','=',Auth::user()->id)->get();
-   return $resources;
+   return Resource::all()->simplePaginate(15);
  }
 
  /**
