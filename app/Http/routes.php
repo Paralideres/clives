@@ -19,16 +19,16 @@ Route::group(['prefix' => 'api'], function()
     Route::post('password/reset', 'Auth\PasswordController@postReset');
 
     // Route to create a new role
-    Route::post('role', 'AuthenticateController@createRole');
+    Route::post('role', 'RolesController@createRole');
 
     // Route to create a new permission
-    Route::post('permission', 'AuthenticateController@createPermission');
+    Route::post('permission', 'RolesController@createPermission');
 
     // Route to assign role to user
-    Route::post('assign-role', 'AuthenticateController@assignRole');
+    Route::post('assign-role', 'RolesController@assignRole');
 
     // Route to attache permission to a role
-    Route::post('attach-permission', 'AuthenticateController@attachPermission');
+    Route::post('attach-permission', 'RolesController@attachPermission');
 
     Route::group(['prefix' => 'users'], function() {
 
@@ -68,5 +68,11 @@ Route::group(['prefix' => 'api'], function()
 
     });
 
+    // Categories
     Route::resource('categories', 'CategoryController');
+
+    // Resources
+    Route::post('resources/{id}/attach', 'ResourceController@upload');
+    Route::resource('resources', 'ResourceController');
+
 });

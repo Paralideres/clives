@@ -21,7 +21,7 @@ class UserController extends Controller
 
     public function __construct()
     {
-        $this->middleware('jwt.auth', ['except' => [
+        $this->middleware('auth:api', ['except' => [
             'show',
             'store',
             'getProfile'
