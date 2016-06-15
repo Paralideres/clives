@@ -73,6 +73,7 @@ Route::group(['prefix' => 'api'], function()
 
     // Resources
     Route::post('resources/{id}/attach', 'ResourceController@upload');
+    Route::post('resources/{id}/like', 'ResourceController@like');
     Route::resource('resources', 'ResourceController');
 
 });

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Resource;
+use App\Like;
 use Storage;
 
 use Illuminate\Support\Facades\Auth;
@@ -33,8 +34,9 @@ class ResourceController extends Controller
   *
   * @return Response
   */
- public function index() {
-   return response()->json(Resource::simplePaginate(15));
+ public function index()
+ {
+    return response()->json(Resource::simplePaginate(15));
  }
 
  /**
@@ -44,14 +46,14 @@ class ResourceController extends Controller
   */
   public function store(ResourceCreateRequest $request) {
 
-    $resource = new Resource([
-      'title' => $request->title,
-      'slug' => $this->toSlug($request->title).'_'.uniqid(),
-      'review' => $request->review
-    ]);
+      $resource = new Resource([
+        'title' => $request->title,
+        'slug' => $this->toSlug($request->title).'_'.uniqid(),
+        'review' => $request->review
+      ]);
 
-    Auth::user()->resources()->save($resource);
-    return response()->json($resource);
+      Auth::user()->resources()->save($resource);
+      return response()->json($resource);
   }
 
   /**
@@ -62,7 +64,7 @@ class ResourceController extends Controller
    */
   public function show($id)
   {
-      return response()->json(Resource::findOrFail($id));
+      return response()->json(Resource::withCount('likes')->findOrFail($id));
   }
 
   /**
@@ -93,30 +95,47 @@ class ResourceController extends Controller
   }
 
   public function upload(ResourceUploadRequest $request, $id) {
-    $resource = Resource::find($id);
-    $previous_attachment = $resource->attachment;
+      $resource = Resource::find($id);
+      $previous_attachment = $resource->attachment;
 
-    $file = $request->file('resource');
+      $file = $request->file('resource');
 
-    $extension = $file->guessExtension();
-    $filename = $resource->slug . '_'.uniqid($id) . '.' . $extension;
+      $extension = $file->guessExtension();
+      $filename = $resource->slug . '_'.uniqid($id) . '.' . $extension;
 
-    $path = storage_path('app/public/assets/docs/');
+      $path = storage_path('app/public/assets/docs/');
 
-    $file->move($path, $filename);
+      $file->move($path, $filename);
 
     if ($file) {
-      $resource->attachment = $filename;
-      $resource->save();
+        $resource->attachment = $filename;
+        $resource->save();
 
-      if ($previous_attachment) {
-        Storage::delete('public/assets/docs/' . $previous_attachment);
-      }
+        if ($previous_attachment) {
+            Storage::delete('public/assets/docs/' . $previous_attachment);
+        }
 
-      return response()->json(['attachment' => $resource->attachment], 200);
+        return response()->json(['attachment' => $resource->attachment], 200);
     } else {
-      return response()->json($file, 500);
+        return response()->json($file, 500);
     }
+  }
+
+  public function like($id) {
+      $resource = Resource::find($id);
+      $like = $resource->likes()->where('user_id', Auth::id())->first();
+
+      if ($like) {
+          $like->delete();
+
+          return response()->json(null, 200);
+
+      } else {
+          $new_like = new Like([ 'user_id' => Auth::id() ]);
+          $resource->likes()->save($new_like);
+
+          return response()->json(null, 200);
+      }
   }
 
   /**
@@ -125,7 +144,7 @@ class ResourceController extends Controller
    * @return str snakecased string
    */
   private function toSlug($string) {
-    return strtolower(preg_replace('/[\s-]/', '_', $string));
+      return strtolower(preg_replace('/[\s-]/', '_', $string));
   }
 
 }

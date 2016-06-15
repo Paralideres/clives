@@ -32,14 +32,28 @@ class User extends Model implements AuthenticatableContract,
 
     protected $dates = ['deleted_at'];
 
+    /**
+     * Get the user profile.
+     */
     public function profile()
     {
         return $this->hasOne('App\UserProfile');
     }
 
+    /**
+     * Get all of the user's resources.
+     */
     public function resources()
     {
         return $this->hasMany('App\Resource');
+    }
+
+    /**
+     * Get all of the user's likes.
+     */
+    public function likes()
+    {
+        return $this->hasMany('App\Like');
     }
 
     public function getJWTIdentifier()
