@@ -56,6 +56,11 @@ class User extends Model implements AuthenticatableContract,
         return $this->hasMany('App\Like');
     }
 
+    public function collections()
+    {
+        return $this->hasMany('App\Collection');
+    }
+
     public function getJWTIdentifier()
     {
         // Eloquen model method

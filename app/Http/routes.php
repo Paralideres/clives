@@ -72,8 +72,21 @@ Route::group(['prefix' => 'api'], function()
     Route::resource('categories', 'CategoryController');
 
     // Resources
-    Route::post('resources/{id}/attach', 'ResourceController@upload');
-    Route::post('resources/{id}/like', 'ResourceController@like');
+    Route::group(['prefix' => 'resources/{id}'], function() {
+
+      // Attach a file
+      Route::post('/attach', 'ResourceController@upload');
+
+      // Like/Unlike
+      Route::post('/like', 'ResourceController@like');
+
+      // Add the resource to a collection
+      Route::put('/addToCollection', 'ResourceController@addToCollection');
+    });
+    
     Route::resource('resources', 'ResourceController');
+
+    // Collections
+    Route::resource('collections', 'CollectionController');
 
 });

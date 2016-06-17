@@ -1,11 +1,13 @@
 <?php
+
 namespace App\Http\Requests\Resource;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class ResourceUpdateRequest extends FormRequest {
+class ResourceAddToCollectionRequest extends FormRequest
+{
     /**
      * Get the validation rules that apply to the request.
      *
@@ -13,12 +15,9 @@ class ResourceUpdateRequest extends FormRequest {
      */
     public function rules()
     {
-      	return [
-            'title' => 'max:100',
-            'review' => 'max:300',
-            'content' => 'max:4000',
-            'category_id' => 'exists:categories,id',
-      	];
+        return [
+          'collection_id' => 'required|numeric|exists:collections,id',
+        ];
     }
 
     public function authorize()

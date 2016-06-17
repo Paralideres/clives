@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\Category;
 use Illuminate\Http\Request;
 use App\Http\Requests\Category\CategoryCreateRequest;
@@ -12,7 +13,7 @@ class CategoryController extends Controller
 
     public function __construct()
     {
-        $this->middleware('role:admin', ['except' => [
+        $this->middleware('auth:api', ['except' => [
             'index',
             'show',
         ]]);
@@ -25,7 +26,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return response()->json(Category::all(), 200);
+        return response()->json(Category::with('collections')->get(), 200);
     }
 
     /**
@@ -53,9 +54,16 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        return response()->json(Category::findOrFail($id), 200);
-    }
 
+        $response = Category::with(['collections.resources', 'resources' => function($query) {
+          $query->whereNotExists(function ($q) {
+              $q->select(DB::raw(1))
+                    ->from('collection_resource')
+                    ->whereRaw('collection_resource.resource_id = resources.id');
+          });
+        }])->findOrFail($id);
+        return response()->json($response, 200);
+    }
 
     /**
      * Update the specified resource in storage.

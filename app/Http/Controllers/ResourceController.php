@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Resource;
 use App\Like;
+use App\Collection;
 use Storage;
 
 use Illuminate\Support\Facades\Auth;
@@ -11,6 +12,7 @@ use App\Http\Requests\Resource\ResourceCreateRequest;
 use App\Http\Requests\Resource\ResourceDeleteRequest;
 use App\Http\Requests\Resource\ResourceUploadRequest;
 use App\Http\Requests\Resource\ResourceUpdateRequest;
+use App\Http\Requests\Resource\ResourceAddToCollectionRequest;
 use Illuminate\Http\Request;
 
 class ResourceController extends Controller
@@ -49,7 +51,8 @@ class ResourceController extends Controller
       $resource = new Resource([
         'title' => $request->title,
         'slug' => $this->toSlug($request->title).'_'.uniqid(),
-        'review' => $request->review
+        'review' => $request->review,
+        'category_id' => $request->category_id
       ]);
 
       Auth::user()->resources()->save($resource);
@@ -90,6 +93,7 @@ class ResourceController extends Controller
       $resource->title = $request->title;
       $resource->review = $request->review;
       $resource->content = $request->content;
+      $resource->category_id = $request->category_id;
       $resource->save();
       return response()->json($resource, 200);
   }
@@ -136,6 +140,14 @@ class ResourceController extends Controller
 
           return response()->json(null, 200);
       }
+  }
+
+  public function addToCollection(ResourceAddToCollectionRequest $request, $id) {
+      $resource = Resource::find($id);
+      $collection = Collection::find($request->collection_id);
+
+      $collection->resources()->save($resource);
+      return response()->json('', 200);
   }
 
   /**

@@ -14,4 +14,14 @@ class Category extends Model
     protected $hidden = [
         'created_at', 'updated_at'
     ];
+
+    public function collections()
+    {
+        return $this->hasMany('App\Collection');
+    }
+
+    public function resources()
+    {
+        return $this->hasMany('App\Resource');
+    }
 }

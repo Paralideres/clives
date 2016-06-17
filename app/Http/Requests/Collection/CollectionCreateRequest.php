@@ -1,11 +1,13 @@
 <?php
-namespace App\Http\Requests\Resource;
+
+namespace App\Http\Requests\Collection;
 
 use Illuminate\Http\JsonResponse;
-use Illuminate\Foundation\Http\FormRequest;
-use Response;
+use App\Http\Requests\Request;
 
-class ResourceCreateRequest extends FormRequest {
+class CollectionCreateRequest extends Request
+{
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -13,16 +15,20 @@ class ResourceCreateRequest extends FormRequest {
      */
     public function rules()
     {
-      	return [
-            'title' => 'required|max:100',
-            'review' => 'required|max:300',
-            'category_id' => 'exists:categories,id',
+        return [
+            'label' => 'required|max:100',
+            'category' => 'required|numeric'
       	];
     }
 
+    /**
+    * Determine if the user is authorized to make this request.
+    *
+    * @return bool
+    */
     public function authorize()
     {
-        return true;
+      return true;
     }
 
     public function forbiddenResponse()
