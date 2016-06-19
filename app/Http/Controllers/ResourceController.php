@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Resource;
 use App\Like;
 use App\Collection;
+use App\Tag;
 use Storage;
+use DB;
 
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Resource\ResourceCreateRequest;
@@ -67,7 +69,7 @@ class ResourceController extends Controller
    */
   public function show($id)
   {
-      return response()->json(Resource::withCount('likes')->findOrFail($id));
+      return response()->json(Resource::with('tags', 'likesCount')->findOrFail($id));
   }
 
   /**

@@ -68,9 +68,6 @@ Route::group(['prefix' => 'api'], function()
 
     });
 
-    // Categories
-    Route::resource('categories', 'CategoryController');
-
     // Resources
     Route::group(['prefix' => 'resources/{id}'], function() {
 
@@ -82,11 +79,19 @@ Route::group(['prefix' => 'api'], function()
 
       // Add the resource to a collection
       Route::put('/addToCollection', 'ResourceController@addToCollection');
+
+      // Resource tags
+      Route::resource('/tags', 'ResourceTagController');
+
     });
-    
     Route::resource('resources', 'ResourceController');
+
+    // Categories
+    Route::resource('categories', 'CategoryController');
 
     // Collections
     Route::resource('collections', 'CollectionController');
 
+    // Tags
+    Route::resource('tags', 'TagController');
 });
