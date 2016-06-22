@@ -30,31 +30,16 @@ Route::group(['prefix' => 'api'], function()
     // Route to attache permission to a role
     Route::post('attach-permission', 'RolesController@attachPermission');
 
+    //User Actions
     Route::group(['prefix' => 'users'], function() {
 
-        // User List
-        Route::get('/', 'UserController@index');
-
-        // Create User
-        Route::post('/', 'UserController@store');
-
-        //User Actions
         Route::group(['prefix' => '/{user_id}'], function($userId) {
-
-            // Get User
-            Route::get('/', 'UserController@show');
 
             // Get User Profile
             Route::get('/profile', 'UserController@getProfile');
 
             // Update user password
             Route::post('/password/reset', 'Auth\PasswordController@postReset');
-
-            // Update User
-            Route::put('/', 'UserController@update');
-
-            // Delete User
-            Route::delete('/', 'UserController@delete');
 
             // Update User Profile
             Route::put('/profile', 'UserController@updateProfile');
@@ -66,25 +51,30 @@ Route::group(['prefix' => 'api'], function()
             Route::delete('/profile/image', 'UserController@deleteImage');
         });
 
+        Route::resource('/', 'UserController');
     });
 
     // Resources
-    Route::group(['prefix' => 'resources/{id}'], function() {
+    Route::group(['prefix' => 'resources'], function() {
 
-      // Attach a file
-      Route::post('/attach', 'ResourceController@upload');
+        Route::group(['prefix' => '/{id}'], function() {
 
-      // Like/Unlike
-      Route::post('/like', 'ResourceController@like');
+          // Attach a file
+          Route::post('/attach', 'ResourceController@upload');
 
-      // Add the resource to a collection
-      Route::put('/addToCollection', 'ResourceController@addToCollection');
+          // Like/Unlike
+          Route::post('/like', 'ResourceController@like');
 
-      // Resource tags
-      Route::resource('/tags', 'ResourceTagController');
+          // Add the resource to a collection
+          Route::put('/addToCollection', 'ResourceController@addToCollection');
 
+          // Resource tags
+          Route::resource('/tags', 'ResourceTagController');
+
+        });
+
+        Route::resource('/', 'ResourceController');
     });
-    Route::resource('resources', 'ResourceController');
 
     // Categories
     Route::resource('categories', 'CategoryController');
@@ -94,4 +84,8 @@ Route::group(['prefix' => 'api'], function()
 
     // Tags
     Route::resource('tags', 'TagController');
+
+    // Polls
+    Route::resource('polls', 'PollController');
+
 });

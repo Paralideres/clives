@@ -61,6 +61,11 @@ class User extends Model implements AuthenticatableContract,
         return $this->hasMany('App\Collection');
     }
 
+    public function polls()
+    {
+        return $this->belongsToMany('App\Poll');
+    }
+
     public function getJWTIdentifier()
     {
         // Eloquen model method
