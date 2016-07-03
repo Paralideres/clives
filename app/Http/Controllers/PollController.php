@@ -38,8 +38,8 @@ class PollController extends Controller
     {
         $poll = Poll::create([
           'question' => $request->question,
-          'date_from' => $request->from,
-          'date_to' => $request->to,
+          'date_from' => $request->date_from,
+          'date_to' => $request->date_to,
           'active' => $request->active
         ]);
 
@@ -55,6 +55,31 @@ class PollController extends Controller
         $poll->load('options');
 
         return response()->json($poll, 200);
+    }
+
+    public function update(PollCreateRequest $request, $id)
+    {
+      $poll = Poll::find($id);
+
+      $poll->question = $request->question;
+      $poll->date_from = $request->date_from;
+      $poll->date_to = $request->date_to;
+      $poll->active = $request->active;
+
+      $poll->options()->delete();
+
+      $options = array_map(function($option, $key) {
+          return new PollOption([
+              'option' => $option,
+              'index' => $key
+          ]);
+      }, $request->options, array_keys($request->options));
+
+      $poll->options()->saveMany($options);
+
+      $poll->load('options');
+
+      return response()->json($poll, 200);
     }
 
 }

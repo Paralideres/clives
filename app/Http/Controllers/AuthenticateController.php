@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 
+use Cookie;
 use JWTAuth;
 use App\Http\Controllers\Controller;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -53,7 +54,9 @@ class AuthenticateController extends Controller
         $this->clearLoginAttempts($request);
 
         // all good so return the token
-        return response()->json(compact('token'));
+        return response()
+          ->json(compact('token'))
+          ->withCookie(cookie('token', $token, 20160));
     }
 
     /**
@@ -77,5 +80,17 @@ class AuthenticateController extends Controller
     public function loginUsername()
     {
         return property_exists($this, 'username') ? $this->username : 'email';
+    }
+
+    public function clearCookie()
+    {
+        try {
+            JWTAuth::invalidate(JWTAuth::getToken())):
+        } catch(JWTException $error) {
+            // something went wrong whilst attempting to encode the token
+            return response()->json(['error' => 'could_not_logout'], 500);
+        }
+
+        return response()->json('Logged out', 200);
     }
 }

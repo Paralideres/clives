@@ -179,4 +179,8 @@ class UserController extends Controller
         // @todo Send Image to S3
         return response()->json(null, 200);
     }
+
+    public function currentUser() {
+        return response()->json(Auth::user(), 200);
+    }
 }

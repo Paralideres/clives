@@ -10,6 +10,8 @@ class PollOption extends Model
 
     protected $fillable = [ 'option', 'index' ];
 
+    protected $hidden = [ 'poll_id', 'id' ];
+
     public $timestamps = false;
 
     public function poll()

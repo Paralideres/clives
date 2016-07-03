@@ -9,14 +9,26 @@
 // API route group that we need to protect
 Route::group(['prefix' => 'api'], function()
 {
-    // Authentication route
-    Route::post('authenticate', 'AuthenticateController@authenticate');
 
-    // Password reset link request routes...
-    Route::post('password/email', 'Auth\PasswordController@postEmail');
+    //User Actions
+    Route::group(['prefix' => 'account'], function() {
 
-    // Password reset routes...
-    Route::post('password/reset', 'Auth\PasswordController@postReset');
+      // Get logged user
+      Route::get('/', 'UserController@currentUser');
+
+      // Authentication route
+      Route::post('/login', 'AuthenticateController@authenticate');
+
+      // Clear cookie route
+      Route::post('/logout', 'AuthenticateController@clearCookie');
+
+      // Password reset link request routes...
+      Route::post('password/email', 'Auth\PasswordController@postEmail');
+
+      // Password reset routes...
+      Route::post('password/reset', 'Auth\PasswordController@postReset');
+    });
+
 
     // Route to create a new role
     Route::post('role', 'RolesController@createRole');
@@ -30,8 +42,10 @@ Route::group(['prefix' => 'api'], function()
     // Route to attache permission to a role
     Route::post('attach-permission', 'RolesController@attachPermission');
 
+
     //User Actions
     Route::group(['prefix' => 'users'], function() {
+
 
         Route::group(['prefix' => '/{user_id}'], function($userId) {
 
