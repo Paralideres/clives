@@ -14,9 +14,12 @@ class CreateTableUserProfile extends Migration
     {
         Schema::create('user_profiles', function (Blueprint $table) {
             $table->string('fullname', 100)->nullable();
-            $table->string('country', 100)->nullable();
             $table->string('city', 100)->nullable();
+            $table->string('state', 100)->nullable();
+            $table->integer('country_id')->unsigned()->nullable();
             $table->date('birthdate')->nullable();
+            $table->string('sex')->nullable();
+            $table->string('phone')->nullable();
             $table->mediumText('description')->nullable();
             $table->string('image')->nullable();
             $table->string('social_facebook', 50)->nullable();

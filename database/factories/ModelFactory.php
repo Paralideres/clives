@@ -23,7 +23,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 $factory->define(App\UserProfile::class, function (Faker\Generator $faker) {
     return [
         'fullname' => $faker->name,
-        'country' => $faker->country,
+        'country_id' => 1,
         'city' => $faker->city,
         'birthdate' => $faker->dateTimeThisCentury($max = '-15 years') ,
         'description' => $faker->text($maxNbChars = 200),

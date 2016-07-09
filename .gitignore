@@ -15,3 +15,7 @@ storage/
 
 .DS_Store
 .vagrant/
+
+# MYSQL Dumps
+dump.sql
+migration.sql

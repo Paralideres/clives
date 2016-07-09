@@ -85,7 +85,7 @@ class AuthenticateController extends Controller
     public function clearCookie()
     {
         try {
-            JWTAuth::invalidate(JWTAuth::getToken())):
+            JWTAuth::invalidate(JWTAuth::getToken());
         } catch(JWTException $error) {
             // something went wrong whilst attempting to encode the token
             return response()->json(['error' => 'could_not_logout'], 500);

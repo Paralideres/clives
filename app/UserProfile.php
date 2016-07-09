@@ -11,9 +11,9 @@ class UserProfile extends Model
   public $primaryKey  = 'user_id';
 
   protected $fillable = [
-    'fullname', 'country', 'city', 'birthdate', 'description', 'image',
+    'fullname', 'country_id', 'city', 'birthdate', 'sex', 'phone', 'description', 'image',
     'social_facebook', 'social_twitter', 'social_youtube', 'social_instagram',
-    'social_snapchat'
+    'social_snapchat', 'former_id'
   ];
 
   public function user(){
