@@ -22,9 +22,6 @@ class CreateTableResources extends Migration
 
             $table->integer('former_id')->unsigned()->nullable();
 
-            $table->integer('category_id')->unsigned()->index();
-            $table->foreign('category_id')->references('id')->on('categories');
-
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
 
