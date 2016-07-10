@@ -17,5 +17,4 @@ storage/
 .vagrant/
 
 # MYSQL Dumps
-dump.sql
-migration.sql
+*.sql

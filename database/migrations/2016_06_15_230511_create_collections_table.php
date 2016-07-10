@@ -21,6 +21,9 @@ class CreateCollectionsTable extends Migration
 
             $table->text('description')->nullable();
 
+            $table->integer('former_id')->unsigned()->nullable();
+            $table->integer('former_parent_id')->unsigned()->nullable();
+
             $table->integer('user_id')->unsigned()->index();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 

@@ -21,8 +21,8 @@ class CategoryTableSeeder extends Seeder
             'updated_at' => new \DateTime()
           ],
           [
-            'label' => 'Arte',
-            'slug' => 'arte',
+            'label' => 'Arte y Narrativa',
+            'slug' => 'arte-y-narrativa',
             'description' => '',
             'created_at' => new \DateTime(),
             'updated_at' => new \DateTime()
@@ -93,13 +93,6 @@ class CategoryTableSeeder extends Seeder
           [
             'label' => 'Videos',
             'slug' => 'videos',
-            'description' => '',
-            'created_at' => new \DateTime(),
-            'updated_at' => new \DateTime()
-          ],
-          [
-            'label' => 'Narraciones',
-            'slug' => 'narraciones',
             'description' => '',
             'created_at' => new \DateTime(),
             'updated_at' => new \DateTime()

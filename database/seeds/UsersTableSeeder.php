@@ -25,9 +25,5 @@ class UsersTableSeeder extends Seeder
         DB::table('user_profiles')->insert([
             'user_id' => $user->id
         ]);
-
-        factory(App\User::class, 10)->create()->each(function($u) {
-            $u->profile()->save(factory(App\UserProfile::class)->make());
-        });
     }
 }
