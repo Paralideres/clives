@@ -69,7 +69,7 @@ class ResourceController extends Controller
    */
   public function show($id)
   {
-      return response()->json(Resource::with('tags', 'likesCount')->findOrFail($id));
+      return response()->json(Resource::with('tags', 'likesCount')->find($id));
   }
 
   /**

@@ -33,9 +33,9 @@ class UserController extends Controller
         return response()->json(User::all());
     }
 
-    public function show($userId)
+    public function show($id)
     {
-        $user = User::find($userId);
+        $user = User::find($id);
 
         if ($user) {
           return response()->json($user);
@@ -57,9 +57,9 @@ class UserController extends Controller
     }
 
     // Update one at a time with the required password validation
-    public function update(UserUpdateRequest $request, $userId)
+    public function update(UserUpdateRequest $request, $id)
     {
-        $user = User::find($userId);
+        $user = User::find($id);
 
         $credentials = [
           'email' => $user->email,
@@ -83,19 +83,19 @@ class UserController extends Controller
         return response()->json('Wrong password', 401);
     }
 
-    public function delete(UserDeleteUserRequest $request, $userId)
+    public function delete(UserDeleteUserRequest $request, $id)
     {
 
-        if (User::find($userId)->delete()) {
+        if (User::find($id)->delete()) {
             return response()->json('', 200);
         }
 
         return response()->json('Not Found', 404);
     }
 
-    public function getProfile($userId)
+    public function getProfile($id)
     {
-        $user = User::find($userId);
+        $user = User::find($id);
 
         if ($user) {
           return response()->json($user->profile);
@@ -104,11 +104,11 @@ class UserController extends Controller
         return response()->json('Not Found', 404);
     }
 
-    public function updateProfile(UserProfileUpdateRequest $request, $userId)
+    public function updateProfile(UserProfileUpdateRequest $request, $id)
     {
-        $profile = UserProfile::where('user_id', $userId)->first();
+        $profile = UserProfile::where('user_id', $id)->first();
         $profile->fullname = $request->fullname;
-        $profile->country = $request->country;
+        $profile->country_id = $request->country_id;
         $profile->city = $request->city;
         $profile->birthdate = $request->birthdate;
         $profile->description = $request->description;
@@ -121,9 +121,9 @@ class UserController extends Controller
         return response()->json($profile);
     }
 
-    public function updateImage(UserImageProfileImageRequest $request, $userId)
+    public function updateImage(UserImageProfileImageRequest $request, $id)
     {
-        $profile = User::find($userId)->profile;
+        $profile = User::find($id)->profile;
         $previous_image = $profile->image;
         $image = $request->file('image');
         list($width, $height) = getimagesize($image);
@@ -133,7 +133,7 @@ class UserController extends Controller
         $profile_img = Image::make($image)->fit(300)->encode('png');
         $thumb_img = Image::make($image)->fit(100)->encode('png');
 
-        $img_name = str_random(5) . '_' . uniqid($userId);
+        $img_name = str_random(5) . '_' . uniqid($id);
         $path = storage_path('app/public/assets/uploads/');
 
         // Image storage
@@ -160,9 +160,9 @@ class UserController extends Controller
         return response()->json(['image' => $img_name], 200);
     }
 
-    public function deleteImage(UserDeleteUserRequest $request, $userId)
+    public function deleteImage(UserDeleteUserRequest $request, $id)
     {
-        $profile = User::find($userId)->profile;
+        $profile = User::find($id)->profile;
         $previous_image = $profile->image;
 
         // Update the DB

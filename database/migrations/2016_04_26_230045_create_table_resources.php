@@ -16,12 +16,12 @@ class CreateTableResources extends Migration
             $table->increments('id');
             $table->string('title');
             $table->string('slug');
-            $table->string('review')->nullable();
-            $table->string('content')->nullable();
+            $table->text('review')->nullable();
+            $table->mediumText('content')->nullable();
             $table->string('attachment')->nullable();
 
+            $table->boolean('published')->default(0);
             $table->integer('former_id')->unsigned()->nullable();
-
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
 

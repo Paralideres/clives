@@ -17,10 +17,10 @@ Route::group(['prefix' => 'api'], function()
       Route::get('/', 'UserController@currentUser');
 
       // Authentication route
-      Route::post('/login', 'AuthenticateController@authenticate');
+      Route::post('login', 'AuthenticateController@authenticate');
 
       // Clear cookie route
-      Route::post('/logout', 'AuthenticateController@clearCookie');
+      Route::post('logout', 'AuthenticateController@clearCookie');
 
       // Password reset link request routes...
       Route::post('password/email', 'Auth\PasswordController@postEmail');
@@ -46,44 +46,72 @@ Route::group(['prefix' => 'api'], function()
     //User Actions
     Route::group(['prefix' => 'users'], function() {
 
+        // List Users
+        Route::get('/', 'UserController@show');
 
-        Route::group(['prefix' => '/{user_id}'], function($userId) {
+        // Create User
+        Route::post('/', 'UserController@show');
+
+        // User Methods
+        Route::group(['prefix' => '{id}'], function() {
+
+            // Show User
+            Route::get('/', 'UserController@show');
+
+            // Update User
+            Route::put('/', 'UserController@update');
+
+            // Delete User
+            Route::delete('/', 'UserController@delete');
 
             // Get User Profile
-            Route::get('/profile', 'UserController@getProfile');
+            Route::get('profile', 'UserController@getProfile');
 
             // Update user password
-            Route::post('/password/reset', 'Auth\PasswordController@postReset');
+            Route::post('password/reset', 'Auth\PasswordController@postReset');
 
             // Update User Profile
-            Route::put('/profile', 'UserController@updateProfile');
+            Route::put('profile', 'UserController@updateProfile');
 
             // Update User Profile Image
-            Route::post('/profile/image', 'UserController@updateImage');
+            Route::post('profile/image', 'UserController@updateImage');
 
             // Delete User Profile Image
-            Route::delete('/profile/image', 'UserController@deleteImage');
+            Route::delete('profile/image', 'UserController@deleteImage');
         });
-
-        Route::resource('/', 'UserController');
     });
 
     // Resources
     Route::group(['prefix' => 'resources'], function() {
 
-        Route::group(['prefix' => '/{id}'], function() {
+        // List Resource
+        Route::get('/', 'ResourceController@show');
+
+        // Create Resource
+        Route::post('/', 'ResourceController@show');
+
+        Route::group(['prefix' => '{id}'], function() {
+
+          // Show Resource
+          Route::get('/', 'ResourceController@show');
+
+          // Update Resource
+          Route::put('/', 'ResourceController@update');
+
+          // Delete Resource
+          Route::delete('/', 'ResourceController@delete');
 
           // Attach a file
-          Route::post('/attach', 'ResourceController@upload');
+          Route::post('attach', 'ResourceController@upload');
 
           // Like/Unlike
-          Route::post('/like', 'ResourceController@like');
+          Route::post('like', 'ResourceController@like');
 
           // Add the resource to a collection
-          Route::put('/addToCollection', 'ResourceController@addToCollection');
+          Route::put('addToCollection', 'ResourceController@addToCollection');
 
           // Resource tags
-          Route::resource('/tags', 'ResourceTagController');
+          Route::resource('tags', 'ResourceTagController');
 
         });
 

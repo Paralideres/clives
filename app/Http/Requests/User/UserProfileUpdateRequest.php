@@ -16,7 +16,7 @@ class UserProfileUpdateRequest extends FormRequest {
     {
       	return [
             'fullname' => 'max:100',
-            'country' => 'max:100|regex:/^[(a-zA-Z\s)]+$/u',
+            'country_id' => 'max:150',
             'city' => 'max:100|regex:/^[(a-zA-Z\s)]+$/u',
             'birthdate' => 'date',
             'description' => 'max:300',
