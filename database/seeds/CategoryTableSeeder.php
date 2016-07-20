@@ -17,6 +17,7 @@ class CategoryTableSeeder extends Seeder
             'label' => 'Devocionales',
             'slug' => 'devocionales',
             'description' => '',
+            'former_id' => 91,
             'created_at' => new \DateTime(),
             'updated_at' => new \DateTime()
           ],
@@ -24,6 +25,7 @@ class CategoryTableSeeder extends Seeder
             'label' => 'Arte y Narrativa',
             'slug' => 'arte-y-narrativa',
             'description' => '',
+            'former_id' => 340,
             'created_at' => new \DateTime(),
             'updated_at' => new \DateTime()
           ],
@@ -31,6 +33,7 @@ class CategoryTableSeeder extends Seeder
             'label' => 'Dinámicas y Juegos',
             'slug' => 'dinámicas-y-juegos',
             'description' => '',
+            'former_id' => 29,
             'created_at' => new \DateTime(),
             'updated_at' => new \DateTime()
           ],
@@ -38,6 +41,7 @@ class CategoryTableSeeder extends Seeder
             'label' => 'Estudios Bíblicos',
             'slug' => 'estudios-biblicos',
             'description' => '',
+            'former_id' => 67,
             'created_at' => new \DateTime(),
             'updated_at' => new \DateTime()
           ],
@@ -45,6 +49,7 @@ class CategoryTableSeeder extends Seeder
             'label' => 'Consejería',
             'slug' => 'consejeria',
             'description' => '',
+            'former_id' => 27,
             'created_at' => new \DateTime(),
             'updated_at' => new \DateTime()
           ],
@@ -52,6 +57,7 @@ class CategoryTableSeeder extends Seeder
             'label' => 'Cursos',
             'slug' => 'cursos',
             'description' => '',
+            'former_id' => 160,
             'created_at' => new \DateTime(),
             'updated_at' => new \DateTime()
           ],
@@ -59,6 +65,7 @@ class CategoryTableSeeder extends Seeder
             'label' => 'Libros',
             'slug' => 'libros',
             'description' => '',
+            'former_id' => 29,
             'created_at' => new \DateTime(),
             'updated_at' => new \DateTime()
           ],
@@ -66,6 +73,7 @@ class CategoryTableSeeder extends Seeder
             'label' => 'Reflexiones',
             'slug' => 'reflexiones',
             'description' => '',
+            'former_id' => 341,
             'created_at' => new \DateTime(),
             'updated_at' => new \DateTime()
           ],
@@ -73,6 +81,7 @@ class CategoryTableSeeder extends Seeder
             'label' => 'Tecnología',
             'slug' => 'tecnologia',
             'description' => '',
+            'former_id' => null,
             'created_at' => new \DateTime(),
             'updated_at' => new \DateTime()
           ],
@@ -80,6 +89,7 @@ class CategoryTableSeeder extends Seeder
             'label' => 'Artículos',
             'slug' => 'articulos',
             'description' => '',
+            'former_id' => 71,
             'created_at' => new \DateTime(),
             'updated_at' => new \DateTime()
           ],
@@ -87,6 +97,7 @@ class CategoryTableSeeder extends Seeder
             'label' => 'Música',
             'slug' => 'musica',
             'description' => '',
+            'former_id' => null,
             'created_at' => new \DateTime(),
             'updated_at' => new \DateTime()
           ],
@@ -94,6 +105,7 @@ class CategoryTableSeeder extends Seeder
             'label' => 'Videos',
             'slug' => 'videos',
             'description' => '',
+            'former_id' => null,
             'created_at' => new \DateTime(),
             'updated_at' => new \DateTime()
           ],

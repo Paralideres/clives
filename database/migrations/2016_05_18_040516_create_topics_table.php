@@ -17,6 +17,7 @@ class CreateTopicsTable extends Migration
             $table->string('label');
             $table->string('slug');
             $table->text('description')->nullable();
+            $table->integer('former_id')->unsigned()->nullable();
             $table->timestamps();
 
             $table->unique('slug');
