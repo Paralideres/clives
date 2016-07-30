@@ -34,7 +34,7 @@ class TagController extends Controller
             return response()->json($resources, 200);
 
           }
-          return response()->json(Tag::simplePaginate(15), 200);
+          return response()->json(Tag::simplePaginate(20), 200);
      }
 
      public function store(TagCreateRequest $request)

@@ -56,14 +56,28 @@ class User extends Model implements AuthenticatableContract,
         return $this->hasMany('App\Like');
     }
 
+    /**
+     *  Get all the user collections
+     */
     public function collections()
     {
         return $this->hasMany('App\Collection');
     }
 
+    /**
+     *  Get all the user polls
+     */
     public function polls()
     {
         return $this->belongsToMany('App\Poll');
+    }
+
+    /**
+     *  Get all the user votes
+     */
+    public function pollVote()
+    {
+        return $this->hasMany('App\PollVote');
     }
 
     public function getJWTIdentifier()

@@ -1,6 +1,18 @@
 <?php
 
-//Route::get('/home', 'HomeController@index');
+Route::get('/', function() {
+  return File::get(public_path() . '/static/index.html');
+});
+
+
+Route::get('/login', function() {
+  return File::get(public_path() . '/static/index.html');
+});
+
+
+Route::get('/resources', function() {
+  return File::get(public_path() . '/static/index.html');
+});
 
 /**
  * API
@@ -9,7 +21,6 @@
 // API route group that we need to protect
 Route::group(['prefix' => 'api'], function()
 {
-
     //User Actions
     Route::group(['prefix' => 'account'], function() {
 
@@ -47,10 +58,10 @@ Route::group(['prefix' => 'api'], function()
     Route::group(['prefix' => 'users'], function() {
 
         // List Users
-        Route::get('/', 'UserController@show');
+        Route::get('/', 'UserController@index');
 
         // Create User
-        Route::post('/', 'UserController@show');
+        Route::post('/', 'UserController@create');
 
         // User Methods
         Route::group(['prefix' => '{id}'], function() {
@@ -85,10 +96,10 @@ Route::group(['prefix' => 'api'], function()
     Route::group(['prefix' => 'resources'], function() {
 
         // List Resource
-        Route::get('/', 'ResourceController@show');
+        Route::get('/', 'ResourceController@index');
 
         // Create Resource
-        Route::post('/', 'ResourceController@show');
+        Route::post('/', 'ResourceController@create');
 
         Route::group(['prefix' => '{id}'], function() {
 
@@ -114,8 +125,6 @@ Route::group(['prefix' => 'api'], function()
           Route::resource('tags', 'ResourceTagController');
 
         });
-
-        Route::resource('/', 'ResourceController');
     });
 
     // Categories
@@ -128,6 +137,9 @@ Route::group(['prefix' => 'api'], function()
     Route::resource('tags', 'TagController');
 
     // Polls
+    Route::post('polls/{id}/vote', 'PollController@vote');
+    Route::get('polls/{id}/result', 'PollController@result');
+
     Route::resource('polls', 'PollController');
 
 });

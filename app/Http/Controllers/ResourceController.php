@@ -40,7 +40,7 @@ class ResourceController extends Controller
   */
  public function index()
  {
-    return response()->json(Resource::simplePaginate(15));
+    return response()->json(Resource::simplePaginate(20));
  }
 
  /**

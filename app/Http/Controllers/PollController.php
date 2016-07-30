@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\Poll;
 use App\PollOption;
+use App\PollVote;
 use Illuminate\Http\Request;
 use App\Http\Requests\Poll\PollCreateRequest;
+use App\Http\Requests\Poll\PollVoteRequest;
 use Illuminate\Support\Facades\Auth;
 
 class PollController extends Controller
@@ -59,27 +62,52 @@ class PollController extends Controller
 
     public function update(PollCreateRequest $request, $id)
     {
-      $poll = Poll::find($id);
+        $poll = Poll::find($id);
 
-      $poll->question = $request->question;
-      $poll->date_from = $request->date_from;
-      $poll->date_to = $request->date_to;
-      $poll->active = $request->active;
+        $poll->question = $request->question;
+        $poll->date_from = $request->date_from;
+        $poll->date_to = $request->date_to;
+        $poll->active = $request->active;
 
-      $poll->options()->delete();
+        $poll->options()->delete();
 
-      $options = array_map(function($option, $key) {
-          return new PollOption([
-              'option' => $option,
-              'index' => $key
-          ]);
-      }, $request->options, array_keys($request->options));
+        $options = array_map(function($option, $key) {
+            return new PollOption([
+                'option' => $option,
+                'index' => $key
+            ]);
+        }, $request->options, array_keys($request->options));
 
-      $poll->options()->saveMany($options);
+        $poll->options()->saveMany($options);
 
-      $poll->load('options');
+        $poll->load('options');
 
-      return response()->json($poll, 200);
+        return response()->json($poll, 200);
+    }
+
+    public function vote(PollVoteRequest $request, $id) {
+
+        $hasVoted = Auth::user()->pollVote()->where([
+            'poll_id' => $id,
+            'poll_options_id' => $request->option
+        ])->first();
+
+        if ($hasVoted) {
+            return response()->json('Only one vote per user per poll', 400);
+        }
+
+        $pollVote = new PollVote([
+            'poll_id' => $id,
+            'poll_options_id' => $request->option
+        ]);
+
+        Auth::user()->pollVote()->save($pollVote);
+        return response()->json(200);
+    }
+
+    public function result($id) {
+        $poll = Poll::with('options.votes')->findOrFail($id);
+        return response()->json($poll, 200);
     }
 
 }

@@ -30,7 +30,7 @@ class UserController extends Controller
 
     public function index()
     {
-        return response()->json(User::all());
+        return response()->json(User::simplePaginate(20));
     }
 
     public function show($id)
