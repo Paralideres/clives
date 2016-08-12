@@ -1,18 +1,21 @@
 <?php
 
 Route::get('/', function() {
-  return File::get(public_path() . '/static/index.html');
+  if (Auth::check()) {
+      return File::get(public_path() . '/static/teams/index.html');
+  } else {
+    return File::get(public_path() . '/static/front-page/index.html');
+  }
 });
-
 
 Route::get('/login', function() {
-  return File::get(public_path() . '/static/index.html');
-});
+  return File::get(public_path() . '/static/front-page/index.html');
+})->middleware('guest');
 
 
 Route::get('/resources', function() {
-  return File::get(public_path() . '/static/index.html');
-});
+  return File::get(public_path() . '/static/teams/index.html');
+})->middleware('auth');
 
 /**
  * API
