@@ -12,7 +12,7 @@ class Resource extends Model
 
     protected $fillable = ['title', 'review', 'slug', 'attachment', 'content'];
 
-    protected $hidden = ['pivot'];
+    protected $hidden = ['pivot', 'category_id'];
 
     public function user()
     {

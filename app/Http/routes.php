@@ -9,13 +9,17 @@ Route::get('/', function() {
 });
 
 Route::get('/login', function() {
-  return File::get(public_path() . '/static/front-page/index.html');
+  return File::get(public_path() . '/static/login/index.html');
 })->middleware('guest');
 
 
 Route::get('/resources', function() {
   return File::get(public_path() . '/static/teams/index.html');
 })->middleware('auth');
+
+Route::get('/resources/{id}/{slug}', function() {
+  return File::get(public_path() . '/static/resource/index.html');
+})->middleware('guest');
 
 /**
  * API

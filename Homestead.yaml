@@ -12,9 +12,9 @@ keys:
     - ~/.ssh/id_rsa
 
 folders:
-    - map: "/Users/jvivas/Dev/Paralideres/clives"
+    - map: "/Users/jorgevivas/Dev/paralideres/clives"
       to: "/home/vagrant/clives"
-    - map: "/Users/jvivas/Dev/Paralideres/wardrobe"
+    - map: "/Users/jorgevivas/Dev/paralideres/wardrobe"
       to: "/home/vagrant/wardrobe"
 
 sites:

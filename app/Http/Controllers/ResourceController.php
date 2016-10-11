@@ -67,9 +67,13 @@ class ResourceController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function show($id)
+  public function show($param)
   {
-      return response()->json(Resource::with('tags', 'likesCount')->find($id));
+      $resource = Resource::with('tags', 'likesCount', 'user', 'category')
+        ->where('id', $param)
+        ->orWhere('slug', $param)
+        ->firstOrFail();
+      return response()->json($resource);
   }
 
   /**

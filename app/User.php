@@ -27,7 +27,8 @@ class User extends Model implements AuthenticatableContract,
     ];
 
     protected $hidden = [
-        'password', 'remember_token', 'verified', 'verification_token', 'deleted_at'
+        'password', 'remember_token', 'verified', 'verification_token', 'deleted_at',
+        'former_id', 'former_pwd', 'email', 'created_at', 'updated_at'
     ];
 
     protected $dates = ['deleted_at'];
