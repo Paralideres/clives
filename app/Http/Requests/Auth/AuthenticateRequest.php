@@ -14,7 +14,7 @@ class AuthenticateRequest extends FormRequest {
     {
       	return [
             'email' => 'required_if:username,NULL|email',
-        		'username' => 'required_if:email,NULL|aplha_num',
+        		'username' => 'required_if:email,NULL|alpha_num',
         		'password' => 'required|min:7',
             'remember' => 'boolean'
       	];

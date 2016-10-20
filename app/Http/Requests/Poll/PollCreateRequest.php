@@ -18,8 +18,8 @@ class PollCreateRequest extends Request
         return [
             'question' => 'required|max:100',
             'active' => 'required|boolean',
-            'date_from' => 'required|date',
-            'date_to' => 'required|date|after:from',
+            'date_from' => 'required|date_format:d/m/Y',
+            'date_to' => 'required|date_format:d/m/Y|after:date_from',
             'options' => 'required|array',
         ];
     }

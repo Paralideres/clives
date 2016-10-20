@@ -16,6 +16,7 @@ class CategoryController extends Controller
         $this->middleware('auth:api', ['except' => [
             'index',
             'show',
+            'resources'
         ]]);
     }
 
@@ -52,16 +53,21 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($param)
     {
 
-        $response = Category::with(['collections.resources', 'resources' => function($query) {
-          $query->whereNotExists(function ($q) {
-              $q->select(DB::raw(1))
-                    ->from('collection_resource')
-                    ->whereRaw('collection_resource.resource_id = resources.id');
-          });
-        }])->findOrFail($id);
+        $response = Category::where('slug', $param)->firstOrFail();
+
+        $response->resources = $response->resources()->paginate(15);
+        return response()->json($response, 200);
+    }
+
+    public function resources($param)
+    {
+        $response = Category::where('slug', $param)
+          ->firstOrFail()
+          ->resources()
+          ->simplePaginate(15);
         return response()->json($response, 200);
     }
 

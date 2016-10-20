@@ -14,8 +14,12 @@ Route::get('/login', function() {
 
 
 Route::get('/resources', function() {
-  return File::get(public_path() . '/static/teams/index.html');
-})->middleware('auth');
+  return File::get(public_path() . '/static/resource-list/index.html');
+})->middleware('guest');
+
+Route::get('/category/{slug}', function() {
+  return File::get(public_path() . '/static/resource-list/index.html');
+})->middleware('guest');
 
 Route::get('/resources/{id}/{slug}', function() {
   return File::get(public_path() . '/static/resource/index.html');
@@ -135,6 +139,7 @@ Route::group(['prefix' => 'api'], function()
     });
 
     // Categories
+    Route::get('categories/{slug}/resources', 'CategoryController@resources');
     Route::resource('categories', 'CategoryController');
 
     // Collections
@@ -146,6 +151,7 @@ Route::group(['prefix' => 'api'], function()
     // Polls
     Route::post('polls/{id}/vote', 'PollController@vote');
     Route::get('polls/{id}/result', 'PollController@result');
+    Route::get('polls/last', 'PollController@last');
 
     Route::resource('polls', 'PollController');
 

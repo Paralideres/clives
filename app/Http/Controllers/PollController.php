@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use DB;
+use Carbon\Carbon;
 use App\Poll;
 use App\PollOption;
 use App\PollVote;
@@ -23,7 +24,8 @@ class PollController extends Controller
     {
        $this->middleware('auth:api', ['except' => [
            'index',
-           'show'
+           'show',
+           'last'
        ]]);
     }
 
@@ -35,6 +37,21 @@ class PollController extends Controller
     public function show($id)
     {
         return response()->json(Poll::with('options')->findOrFail($id), 200);
+    }
+
+    public function last()
+    {
+        $monthStart = new Carbon('first day of this month');
+        $monthEnd = new Carbon('last day of this month');
+
+        return response()->json(
+          Poll::with('options')
+            ->orderBy('created_at', 'asc')
+            ->where('active', '=', '1')
+            ->whereDate('date_from', '>=', $monthStart->toDateString())
+            ->whereDate('date_to', '<=', $monthEnd->toDateString())
+            ->first()
+          );
     }
 
     public function store(PollCreateRequest $request)
@@ -79,7 +96,7 @@ class PollController extends Controller
         }, $request->options, array_keys($request->options));
 
         $poll->options()->saveMany($options);
-
+        $poll->save();
         $poll->load('options');
 
         return response()->json($poll, 200);

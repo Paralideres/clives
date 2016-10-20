@@ -14,6 +14,8 @@ class Poll extends Model
 
     protected $fillable = [ 'question', 'active', 'date_from', 'date_to' ];
 
+    protected $dateFormat = 'd/m/Y H:i:s'; 
+
     public function options()
     {
         return $this->hasMany('App\PollOption');

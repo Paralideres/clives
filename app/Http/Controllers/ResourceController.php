@@ -38,9 +38,16 @@ class ResourceController extends Controller
   *
   * @return Response
   */
- public function index()
+ public function index(Request $request)
  {
-    return response()->json(Resource::simplePaginate(20));
+    // Create Request to Handle this limit Type
+    $limit = intval($request->limit);
+    $limit = $limit > 0 && $limit < 20 ? $limit : 20;
+
+    $resources = Resource::with('likesCount', 'user', 'category')
+      ->orderBy('created_at', 'desc')
+      ->simplePaginate($limit);
+    return response()->json($resources);
  }
 
  /**

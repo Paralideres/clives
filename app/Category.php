@@ -12,7 +12,7 @@ class Category extends Model
     protected $fillable = ['label', 'slug', 'description'];
 
     protected $hidden = [
-        'created_at', 'updated_at'
+        'created_at', 'updated_at', 'former_id'
     ];
 
     public function collections()
@@ -22,6 +22,9 @@ class Category extends Model
 
     public function resources()
     {
-        return $this->hasMany('App\Resource');
+        return $this->hasMany('App\Resource')
+          ->select('resources.id', 'slug', 'title', 'review', 'user_profiles.fullname as user_fullname', 'user_profiles.user_id')
+          ->join('user_profiles', 'user_profiles.user_id', '=', 'resources.user_id')
+          ->orderBy('resources.created_at', 'desc');
     }
 }

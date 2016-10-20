@@ -12,16 +12,16 @@ class Resource extends Model
 
     protected $fillable = ['title', 'review', 'slug', 'attachment', 'content'];
 
-    protected $hidden = ['pivot', 'category_id'];
+    protected $hidden = ['pivot', 'category_id', 'deleted_at'];
 
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\User', 'user_id');
     }
 
     public function category()
     {
-        return $this->belongsTo('App\Category');
+        return $this->belongsTo('App\Category', 'category_id');
     }
 
     /**
@@ -38,7 +38,7 @@ class Resource extends Model
     public function likesCount()
     {
         return $this->likes()
-            ->selectRaw('resource_id, count(*) as total');
+            ->selectRaw('resource_id, count(*) as total')->groupBy('resource_id');
     }
 
     public function collection()
