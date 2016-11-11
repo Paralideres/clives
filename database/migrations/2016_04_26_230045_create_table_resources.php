@@ -22,6 +22,7 @@ class CreateTableResources extends Migration
 
             $table->boolean('published')->default(0);
             $table->integer('former_id')->unsigned()->nullable();
+            $table->integer('former_section_id')->unsigned()->nullable();
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
 

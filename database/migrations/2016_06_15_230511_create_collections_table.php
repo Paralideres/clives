@@ -17,7 +17,6 @@ class CreateCollectionsTable extends Migration
             $table->string('label');
 
             $table->string('slug');
-            $table->unique('slug');
 
             $table->text('description')->nullable();
 

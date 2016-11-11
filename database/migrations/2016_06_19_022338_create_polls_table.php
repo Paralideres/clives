@@ -19,6 +19,7 @@ class CreatePollsTable extends Migration
             $table->date('date_from');
             $table->date('date_to');
             $table->boolean('active');
+            $table->integer('former_id');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -14,6 +14,21 @@ class Resource extends Model
 
     protected $hidden = ['pivot', 'category_id', 'deleted_at'];
 
+    public function getTitleAttribute($value)
+    {
+        return html_entity_decode(strip_tags($value));
+    }
+
+    public function getReviewAttribute($value)
+    {
+        return html_entity_decode(strip_tags($value));
+    }
+
+    public function getContentAttribute($value)
+    {
+        return html_entity_decode(strip_tags($value));
+    }
+
     public function user()
     {
         return $this->belongsTo('App\User', 'user_id');
