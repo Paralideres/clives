@@ -29,7 +29,8 @@ class ResourceController extends Controller
    {
        $this->middleware('auth:api', ['except' => [
            'index',
-           'show'
+           'show',
+           'file'
        ]]);
    }
 
@@ -120,7 +121,7 @@ class ResourceController extends Controller
       $extension = $file->guessExtension();
       $filename = $resource->slug . '_'.uniqid($id) . '.' . $extension;
 
-      $path = storage_path('app/public/assets/docs/');
+      $path = storage_path('resources_files/');
 
       $file->move($path, $filename);
 
@@ -129,13 +130,22 @@ class ResourceController extends Controller
         $resource->save();
 
         if ($previous_attachment) {
-            Storage::delete('public/assets/docs/' . $previous_attachment);
+            Storage::delete('resources_files/' . $previous_attachment);
         }
 
         return response()->json(['attachment' => $resource->attachment], 200);
     } else {
         return response()->json($file, 500);
     }
+  }
+
+  public function file($id, $docId) {
+      $resource = Resource::where([
+        'id' => $id,
+        'attachment' => $docId
+      ])->firstOrFail();
+      $filePath = storage_path('resources_files/' . $resource->attachment);
+      return response()->download($filePath);
   }
 
   public function like($id) {
