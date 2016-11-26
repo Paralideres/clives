@@ -45,7 +45,7 @@ class ResourceController extends Controller
     $limit = intval($request->limit);
     $limit = $limit > 0 && $limit < 20 ? $limit : 20;
 
-    $resources = Resource::with('likesCount', 'user', 'category')
+    $resources = Resource::with('likesCount', 'category', 'user')
       ->orderBy('created_at', 'desc')
       ->simplePaginate($limit);
     return response()->json($resources);

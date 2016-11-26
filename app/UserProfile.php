@@ -16,6 +16,11 @@ class UserProfile extends Model
     'social_snapchat', 'former_id'
   ];
 
+  public function getFullNameAttribute($value)
+  {
+      return html_entity_decode(strip_tags($value));
+  }
+
   public function user(){
       return $this->belongsTo('App\User');
   }

@@ -31,7 +31,9 @@ class Resource extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\User', 'user_id');
+        return $this->belongsTo('App\User')
+          ->select('users.id', 'users.username', 'user_profiles.fullname')
+          ->join('user_profiles', 'user_profiles.user_id', '=', 'users.id');
     }
 
     public function category()

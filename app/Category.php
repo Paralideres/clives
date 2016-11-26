@@ -22,9 +22,6 @@ class Category extends Model
 
     public function resources()
     {
-        return $this->hasMany('App\Resource')
-          ->select('resources.id', 'slug', 'title', 'review', 'user_profiles.fullname as user_fullname', 'user_profiles.user_id')
-          ->join('user_profiles', 'user_profiles.user_id', '=', 'resources.user_id')
-          ->orderBy('resources.created_at', 'desc');
+        return $this->hasMany('App\Resource');
     }
 }
