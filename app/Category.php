@@ -22,6 +22,6 @@ class Category extends Model
 
     public function resources()
     {
-        return $this->hasMany('App\Resource');
+        return $this->hasMany('App\Resource')->with('user');
     }
 }

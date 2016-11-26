@@ -56,14 +56,8 @@ class CategoryController extends Controller
     public function show($param)
     {
 
-        $response = Category::with([
-          'resources.user' => function($query) {
-            $query->simplePaginate(15);
-          }
-        ])
-          ->where('slug', $param)->firstOrFail();
-
-        //$response->resources = $response->resources()->simplePaginate(15);
+        $response = Category::where('slug', $param)->firstOrFail();
+        $response->resources = $response->resources()->simplePaginate(15);
         return response()->json($response, 200);
     }
 
