@@ -2,23 +2,21 @@
 
 namespace App;
 
-use Illuminate\Auth\Authenticatable;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Foundation\Auth\Access\Authorizable;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Tymon\JWTAuth\Contracts\JWTSubject as JWTableContract;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class User extends Model implements AuthenticatableContract,
-                                    AuthorizableContract,
+class User extends Authenticatable implements AuthorizableContract,
                                     CanResetPasswordContract,
                                     JWTableContract
 {
-    use Authenticatable, CanResetPassword, EntrustUserTrait, SoftDeletes;
+    use CanResetPassword, EntrustUserTrait, SoftDeletes;
 
     protected $table = 'users';
 
