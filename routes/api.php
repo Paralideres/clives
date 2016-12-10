@@ -10,13 +10,13 @@ use Illuminate\Http\Request;
 Route::group(['prefix' => 'account'], function() {
 
   // Get logged user
-  Route::get('/', 'UserController@currentUser');
+  Route::get('/', 'Api\UserController@currentUser');
 
   // Authentication route
-  Route::post('login', 'AuthenticateController@authenticate');
+  Route::post('login', 'Api\AuthenticateController@authenticate');
 
   // Clear cookie route
-  Route::post('logout', 'AuthenticateController@clearCookie');
+  Route::post('logout', 'Api\AuthenticateController@clearCookie');
 
   // Password reset link request routes...
   Route::post('password/email', 'Auth\PasswordController@postEmail');
@@ -27,53 +27,53 @@ Route::group(['prefix' => 'account'], function() {
 
 
 // Route to create a new role
-Route::post('role', 'RolesController@createRole');
+Route::post('role', 'Api\RolesController@createRole');
 
 // Route to create a new permission
-Route::post('permission', 'RolesController@createPermission');
+Route::post('permission', 'Api\RolesController@createPermission');
 
 // Route to assign role to user
-Route::post('assign-role', 'RolesController@assignRole');
+Route::post('assign-role', 'Api\RolesController@assignRole');
 
 // Route to attache permission to a role
-Route::post('attach-permission', 'RolesController@attachPermission');
+Route::post('attach-permission', 'Api\RolesController@attachPermission');
 
 
 //User Actions
 Route::group(['prefix' => 'users'], function() {
 
     // List Users
-    Route::get('/', 'UserController@index');
+    Route::get('/', 'Api\UserController@index');
 
     // Create User
-    Route::post('/', 'UserController@create');
+    Route::post('/', 'Api\UserController@create');
 
     // User Methods
     Route::group(['prefix' => '{id}'], function() {
 
         // Show User
-        Route::get('/', 'UserController@show');
+        Route::get('/', 'Api\UserController@show');
 
         // Update User
-        Route::put('/', 'UserController@update');
+        Route::put('/', 'Api\UserController@update');
 
         // Delete User
-        Route::delete('/', 'UserController@delete');
+        Route::delete('/', 'Api\UserController@delete');
 
         // Get User Profile
-        Route::get('profile', 'UserController@getProfile');
+        Route::get('profile', 'Api\UserController@getProfile');
 
         // Update user password
         Route::post('password/reset', 'Auth\PasswordController@postReset');
 
         // Update User Profile
-        Route::put('profile', 'UserController@updateProfile');
+        Route::put('profile', 'Api\UserController@updateProfile');
 
         // Update User Profile Image
-        Route::post('profile/image', 'UserController@updateImage');
+        Route::post('profile/image', 'Api\UserController@updateImage');
 
         // Delete User Profile Image
-        Route::delete('profile/image', 'UserController@deleteImage');
+        Route::delete('profile/image', 'Api\UserController@deleteImage');
     });
 });
 
@@ -81,50 +81,50 @@ Route::group(['prefix' => 'users'], function() {
 Route::group(['prefix' => 'resources'], function() {
 
     // List Resource
-    Route::get('/', 'ResourceController@index');
+    Route::get('/', 'Api\ResourceController@index');
 
     // Create Resource
-    Route::post('/', 'ResourceController@create');
+    Route::post('/', 'Api\ResourceController@create');
 
     Route::group(['prefix' => '{id}'], function() {
 
       // Show Resource
-      Route::get('/', 'ResourceController@show');
+      Route::get('/', 'Api\ResourceController@show');
 
       // Update Resource
-      Route::put('/', 'ResourceController@update');
+      Route::put('/', 'Api\ResourceController@update');
 
       // Delete Resource
-      Route::delete('/', 'ResourceController@delete');
+      Route::delete('/', 'Api\ResourceController@delete');
 
       // Attach a file
-      Route::post('attach', 'ResourceController@upload');
+      Route::post('attach', 'Api\ResourceController@upload');
 
       // Like/Unlike
-      Route::post('like', 'ResourceController@like');
+      Route::post('like', 'Api\ResourceController@like');
 
       // Add the resource to a collection
-      Route::put('addToCollection', 'ResourceController@addToCollection');
+      Route::put('addToCollection', 'Api\ResourceController@addToCollection');
 
       // Resource tags
-      Route::resource('tags', 'ResourceTagController');
+      Route::resource('tags', 'Api\ResourceTagController');
 
     });
 });
 
 // Categories
-Route::get('categories/{slug}/resources', 'CategoryController@resources');
-Route::resource('categories', 'CategoryController');
+Route::get('categories/{slug}/resources', 'Api\CategoryController@resources');
+Route::resource('categories', 'Api\CategoryController');
 
 // Collections
-Route::resource('collections', 'CollectionController');
+Route::resource('collections', 'Api\CollectionController');
 
 // Tags
-Route::resource('tags', 'TagController');
+Route::resource('tags', 'Api\TagController');
 
 // Polls
-Route::post('polls/{id}/vote', 'PollController@vote');
-Route::get('polls/{id}/result', 'PollController@result');
-Route::get('polls/last', 'PollController@last');
+Route::post('polls/{id}/vote', 'Api\PollController@vote');
+Route::get('polls/{id}/result', 'Api\PollController@result');
+Route::get('polls/last', 'Api\PollController@last');
 
-Route::resource('polls', 'PollController');
+Route::resource('polls', 'Api\PollController');

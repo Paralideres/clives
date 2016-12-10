@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use DB;
 use Carbon\Carbon;
@@ -8,6 +8,7 @@ use App\Poll;
 use App\PollOption;
 use App\PollVote;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Poll\PollCreateRequest;
 use App\Http\Requests\Poll\PollVoteRequest;
 use Illuminate\Support\Facades\Auth;

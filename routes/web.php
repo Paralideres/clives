@@ -15,30 +15,43 @@ use Illuminate\Http\Request;
 
 Route::get('/', function() {
   if (Auth::check()) {
-      return File::get(public_path() . '/static/teams/index.html');
+    return view('public.base', [
+      'appName' => 'teams',
+      'pageName' => 'Equipos'
+    ]);
   } else {
-    return File::get(public_path() . '/static/front-page/index.html');
+    return view('public.base', [
+      'appName' => 'front-page',
+      'pageName' => 'Recursos para el trabajo con jóvenes y adolescentes'
+    ]);
   }
 });
 
 Route::get('/login', function() {
-  return File::get(public_path() . '/static/login/index.html');
+  return view('public.base', [
+    'appName' => 'login',
+    'pageName' => 'Ingreso'
+  ]);
 })->middleware('guest');
-
 
 Route::get('/resources', function() {
-  return File::get(public_path() . '/static/resource-list/index.html');
-})->middleware('guest');
+  return view('public.base', [
+    'appName' => 'resource-list',
+    'pageName' => $resource->title
+  ]);
+});
 
-Route::get('/category/{slug}', function() {
-  return File::get(public_path() . '/static/resource-list/index.html');
-})->middleware('guest');
+Route::get('/category/{category}', function(App\Category $category) {
+  return view('public.base', [
+    'appName' => 'resource-list',
+    'pageName' => $category->label
+  ]);
+});
 
-Route::get('/resources/{id}/{slug}', function() {
-  return File::get(public_path() . '/static/resource/index.html');
-})->middleware('guest');
+Route::get('/resources/{resource}/{slug}', 'Web\ResourceController@show');
 
 // Get a file
-Route::get('/resources/{id}/file/{docId}', 'ResourceController@file');
+Route::get('/resources/{id}/file/{docId}', 'Api\ResourceController@file')
+  ->middleware('auth');
 
-Auth::routes();
+//Auth::routes();

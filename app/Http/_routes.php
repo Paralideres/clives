@@ -21,9 +21,6 @@ Route::get('/category/{slug}', function() {
   return File::get(public_path() . '/static/resource-list/index.html');
 })->middleware('guest');
 
-Route::get('/resources/{id}/{slug}', function() {
-  return File::get(public_path() . '/static/resource/index.html');
-})->middleware('guest');
 
 // Get a file
 Route::get('/resources/{id}/file/{docId}', 'ResourceController@file');

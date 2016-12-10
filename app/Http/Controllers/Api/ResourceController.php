@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Resource;
 use App\Like;
@@ -8,7 +8,7 @@ use App\Collection;
 use App\Tag;
 use Storage;
 use DB;
-
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Resource\ResourceCreateRequest;
 use App\Http\Requests\Resource\ResourceDeleteRequest;

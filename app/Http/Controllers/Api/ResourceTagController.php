@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Resource;
 use App\Tag;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Tag\TagCreateRequest;
 use App\Http\Requests\Tag\TagDeleteRequest;
 

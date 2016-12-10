@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use DB;
 use App\Category;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Category\CategoryCreateRequest;
 
 
@@ -55,7 +56,6 @@ class CategoryController extends Controller
      */
     public function show($param)
     {
-
         $response = Category::where('slug', $param)->firstOrFail();
         $response->resources = $response->resources()->simplePaginate(15);
         return response()->json($response, 200);
