@@ -56,7 +56,9 @@ class AuthenticateController extends Controller
         // all good so return the token
         return response()
           ->json(compact('token'))
-          ->withCookie(cookie('token', $token, 20160));
+          ->withCookie(
+            cookie('token', $token, 20160)
+          );
     }
 
     /**

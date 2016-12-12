@@ -46,7 +46,7 @@ Route::group(['prefix' => 'users'], function() {
     Route::get('/', 'Api\UserController@index');
 
     // Create User
-    Route::post('/', 'Api\UserController@create');
+    Route::post('/', 'Api\UserController@store');
 
     // User Methods
     Route::group(['prefix' => '{id}'], function() {

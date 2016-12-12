@@ -34,6 +34,13 @@ Route::get('/login', function() {
   ]);
 })->middleware('guest');
 
+Route::get('/register', function() {
+  return view('public.base', [
+    'appName' => 'register',
+    'pageName' => 'Registro de Nuevos Usuarios'
+  ]);
+})->middleware('guest');
+
 Route::get('/resources', function() {
   return view('public.base', [
     'appName' => 'resource-list',
