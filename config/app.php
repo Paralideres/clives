@@ -161,6 +161,11 @@ return [
         App\Providers\JWTCustomServiceProvider::class,
 
         /**
+         * Passport (OAuth Authentication)
+         */
+        Laravel\Passport\PassportServiceProvider::class,
+
+        /**
          * JWT Auth (Authentication)
          */
         //Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
