@@ -158,23 +158,11 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        App\Providers\JWTCustomServiceProvider::class,
 
         /**
          * Passport (OAuth Authentication)
          */
         Laravel\Passport\PassportServiceProvider::class,
-
-        /**
-         * JWT Auth (Authentication)
-         */
-        //Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
-        Irazasyed\JwtAuthGuard\JwtAuthGuardServiceProvider::class,
-
-        /**
-         * Zizaco Roles Manager (Authorization)
-         */
-        Zizaco\Entrust\EntrustServiceProvider::class,
 
         /**
          * Image Manipulation
@@ -234,9 +222,6 @@ return [
         /**
          * Extra aliases
          */
-        'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
-        'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
-        'Entrust' => Zizaco\Entrust\EntrustServiceProvider::class,
         'Image' => Intervention\Image\Facades\Image::class,
     ],
 

@@ -1,4 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.wardrobe')
+
+@section('head')
+  <title>Ingreso | Paralideres.org</title>
+@endsection
 
 @section('content')
 <div class="container">
