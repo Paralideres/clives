@@ -12,32 +12,33 @@ Route::group(['prefix' => 'account'], function() {
   // Get logged user
   Route::get('/', 'Api\UserController@currentUser');
 
+  // All this is handled via web
   // Authentication route
-  Route::post('login', 'Api\AuthenticateController@authenticate');
+  // Route::post('login', 'Api\AuthenticateController@authenticate');
 
   // Clear cookie route
-  Route::post('logout', 'Api\AuthenticateController@clearCookie');
+  // Route::post('logout', 'Api\AuthenticateController@clearCookie');
 
   // Password reset link request routes...
-  Route::post('password/email', 'Auth\PasswordController@postEmail');
+  // Route::post('password/email', 'Auth\PasswordController@postEmail');
 
   // Password reset routes...
-  Route::post('password/reset', 'Auth\PasswordController@postReset');
+  // Route::post('password/reset', 'Auth\PasswordController@postReset');
 });
 
 
-// Route to create a new role
-Route::post('role', 'Api\RolesController@createRole');
-
-// Route to create a new permission
-Route::post('permission', 'Api\RolesController@createPermission');
-
-// Route to assign role to user
-Route::post('assign-role', 'Api\RolesController@assignRole');
-
-// Route to attache permission to a role
-Route::post('attach-permission', 'Api\RolesController@attachPermission');
-
+// // Route to create a new role
+// Route::post('role', 'Api\RolesController@createRole');
+//
+// // Route to create a new permission
+// Route::post('permission', 'Api\RolesController@createPermission');
+//
+// // Route to assign role to user
+// Route::post('assign-role', 'Api\RolesController@assignRole');
+//
+// // Route to attache permission to a role
+// Route::post('attach-permission', 'Api\RolesController@attachPermission');
+//
 
 //User Actions
 Route::group(['prefix' => 'users'], function() {

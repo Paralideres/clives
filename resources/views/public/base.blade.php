@@ -1,6 +1,7 @@
 @extends('layouts.wardrobe')
 
 @section('head')
+<title>{{ $pageName }} | Paralideres.org</title>
 <link href="/static/{{ $appName }}/{{ $appName }}.css" rel="stylesheet" />
 @endsection
 

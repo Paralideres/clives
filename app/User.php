@@ -5,18 +5,13 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
-use Illuminate\Foundation\Auth\Access\Authorizable;
-use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
-use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
-use Tymon\JWTAuth\Contracts\JWTSubject as JWTableContract;
+use Laravel\Passport\HasApiTokens;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class User extends Authenticatable implements AuthorizableContract,
-                                    CanResetPasswordContract,
-                                    JWTableContract
+class User extends Authenticatable
 {
-    use CanResetPassword, EntrustUserTrait, SoftDeletes;
+    use HasApiTokens, Notifiable, CanResetPassword, EntrustUserTrait, SoftDeletes;
 
     protected $table = 'users';
 

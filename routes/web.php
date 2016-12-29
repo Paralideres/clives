@@ -27,20 +27,6 @@ Route::get('/', function() {
   }
 });
 
-Route::get('/login', function() {
-  return view('public.base', [
-    'appName' => 'login',
-    'pageName' => 'Ingreso'
-  ]);
-})->middleware('guest');
-
-Route::get('/register', function() {
-  return view('public.base', [
-    'appName' => 'register',
-    'pageName' => 'Registro de Nuevos Usuarios'
-  ]);
-})->middleware('guest');
-
 Route::get('/resources', function() {
   return view('public.base', [
     'appName' => 'resource-list',
@@ -61,4 +47,4 @@ Route::get('/resources/{resource}/{slug}', 'Web\ResourceController@show');
 Route::get('/resources/{id}/file/{docId}', 'Api\ResourceController@file')
   ->middleware('auth');
 
-//Auth::routes();
+Auth::routes();

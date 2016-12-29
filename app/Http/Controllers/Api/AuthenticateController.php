@@ -6,9 +6,7 @@ use App\User;
 use Illuminate\Http\Request;
 
 use Cookie;
-use JWTAuth;
 use App\Http\Controllers\Controller;
-use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use App\Http\Requests\Auth\AuthenticateRequest;
 
